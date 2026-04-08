@@ -82,6 +82,10 @@ export function ShopCard({ shop }: ShopCardProps) {
           <span>{shop.availabilitySummary}</span>
         </div>
 
+        <div className="mt-4 rounded-[22px] bg-[color:var(--panel-strong)] px-4 py-3 text-sm font-medium text-[color:var(--foreground)]">
+          {shop.availabilitySummary}
+        </div>
+
         <div className="mt-5 flex flex-wrap gap-2">
           {shop.specialties.map((specialty) => (
             <span
@@ -93,8 +97,8 @@ export function ShopCard({ shop }: ShopCardProps) {
           ))}
         </div>
 
-        <div className="mt-6 flex flex-col gap-3 border-t border-[color:var(--line)] pt-5 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap gap-3 sm:ml-auto">
+        <div className="mt-6 border-t border-[color:var(--line)] pt-5">
+          <div className="grid gap-3 sm:flex sm:flex-wrap sm:justify-end">
             <a
               href={shop.callUrl}
               onClick={() =>
@@ -103,7 +107,7 @@ export function ShopCard({ shop }: ShopCardProps) {
                   source_surface: "results_call_button"
                 })
               }
-              className="inline-flex w-fit rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)]"
+              className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-4 py-3 text-sm font-semibold text-white shadow-[0_14px_34px_rgba(191,90,42,0.18)] transition hover:bg-[color:var(--accent-dark)] sm:w-fit"
             >
               Call shop
             </a>
@@ -117,7 +121,7 @@ export function ShopCard({ shop }: ShopCardProps) {
                   source_surface: "results_primary_link"
                 })
               }
-              className="inline-flex w-fit rounded-full bg-[color:var(--foreground)] px-4 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)] sm:w-fit"
             >
               {shop.bookingUrl ? shop.bookingLabel : "Visit website"}
             </a>
@@ -132,7 +136,7 @@ export function ShopCard({ shop }: ShopCardProps) {
                     source_surface: "results_secondary_website"
                   })
                 }
-                className="inline-flex w-fit rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)]"
+                className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)] sm:w-fit"
               >
                 Website
               </a>
@@ -145,7 +149,7 @@ export function ShopCard({ shop }: ShopCardProps) {
                   source_surface: "results_details_button"
                 })
               }
-              className="inline-flex w-fit rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)]"
+              className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)] sm:w-fit"
             >
               Details
             </Link>

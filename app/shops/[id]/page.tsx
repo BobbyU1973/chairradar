@@ -172,7 +172,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
               </div>
             </div>
 
-            <aside className="h-fit rounded-[34px] border border-[color:var(--line)] bg-[rgba(255,250,243,0.94)] p-6 shadow-[var(--shadow)] sm:p-7">
+            <aside className="order-first h-fit rounded-[34px] border border-[color:var(--line)] bg-[rgba(255,250,243,0.94)] p-6 shadow-[var(--shadow)] sm:p-7 lg:order-none lg:sticky lg:top-24">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
                 Reserve directly
               </p>
@@ -188,17 +188,17 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                   rel="noreferrer"
                   eventName="booking_click"
                   eventParams={baseEventParams}
-                  className="mt-8 flex w-full items-center justify-center rounded-[22px] bg-[color:var(--accent)] px-6 py-4 text-base font-semibold text-white shadow-[0_16px_34px_rgba(191,90,42,0.26)] transition hover:bg-[color:var(--accent-dark)]"
-                >
-                  {shop.bookingLabel}
-                </TrackedExternalLink>
-              ) : null}
+                className="mt-8 flex w-full items-center justify-center rounded-[22px] bg-[color:var(--accent)] px-6 py-4 text-base font-semibold text-white shadow-[0_16px_34px_rgba(191,90,42,0.26)] transition hover:bg-[color:var(--accent-dark)]"
+              >
+                {shop.bookingLabel}
+              </TrackedExternalLink>
+            ) : null}
 
               <TrackedExternalLink
                 href={shop.callUrl}
                 eventName="call_click"
                 eventParams={baseEventParams}
-                className="mt-4 flex w-full items-center justify-center rounded-[22px] border border-[color:var(--line)] bg-white px-6 py-4 text-base font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)]"
+                className="mt-4 flex w-full items-center justify-center rounded-[22px] bg-[color:var(--foreground)] px-6 py-4 text-base font-semibold text-white transition hover:opacity-90"
               >
                 Call {shop.phone}
               </TrackedExternalLink>

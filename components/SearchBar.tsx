@@ -52,10 +52,10 @@ export function SearchBar({
       </label>
 
       <button
-        className="rounded-[22px] bg-[color:var(--accent)] px-6 py-4 text-base font-semibold text-white shadow-[0_14px_34px_rgba(191,90,42,0.28)] transition hover:bg-[color:var(--accent-dark)]"
+        className="w-full rounded-[22px] bg-[color:var(--accent)] px-6 py-4 text-base font-semibold text-white shadow-[0_14px_34px_rgba(191,90,42,0.28)] transition hover:bg-[color:var(--accent-dark)] md:w-auto"
         type="submit"
       >
-        Find openings fast
+        Find shops fast
       </button>
     </form>
   );

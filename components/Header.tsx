@@ -16,7 +16,7 @@ export function Header() {
           </span>
           <div>
             <p className="text-lg font-semibold tracking-tight">OpenChair</p>
-            <p className="text-sm text-[color:var(--muted)]">
+            <p className="hidden text-sm text-[color:var(--muted)] sm:block">
               Find haircut availability fast
             </p>
           </div>
