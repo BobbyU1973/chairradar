@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s | OpenChair"
   },
   verification: {
-    google: "Vw9myqX8OlyKcfU"
+    google: "Vw9myqX8OlyKcfUvRSAfE00UMDuKrcHaebJiTozf1yA"
   },
   description:
     "Find nearby haircut shops fast with open-now signals, walk-in options, click-to-call phone numbers, and direct booking links on OpenChair.",
