@@ -20,6 +20,8 @@ export type Shop = {
   bookingUrl: string | null;
   websiteUrl: string;
   bookingLabel: string;
+  claimed: boolean;
+  sponsored: boolean;
 };
 
 export const regionalSearchTerms = [
@@ -71,7 +73,9 @@ export const shops: Shop[] = [
     callUrl: "tel:+19804445217",
     bookingUrl: "https://www.dieselbarbershop.com/location/mooresville-nc-mooresville-town-square",
     websiteUrl: "https://www.dieselbarbershop.com/location/mooresville-nc-mooresville-town-square",
-    bookingLabel: "Book on shop site"
+    bookingLabel: "Book on shop site",
+    claimed: true,
+    sponsored: true
   },
   {
     id: "datre-hair-co",
@@ -99,7 +103,9 @@ export const shops: Shop[] = [
     callUrl: "tel:+19807775258",
     bookingUrl: "https://www.datrehairco.com/",
     websiteUrl: "https://www.datrehairco.com/",
-    bookingLabel: "Open booking page"
+    bookingLabel: "Open booking page",
+    claimed: true,
+    sponsored: false
   },
   {
     id: "shears-and-beers-langtree",
@@ -129,7 +135,9 @@ export const shops: Shop[] = [
     callUrl: "tel:+17042373592",
     bookingUrl: "https://www.shearsandbeers.com/locations/",
     websiteUrl: "https://www.shearsandbeers.com/locations/",
-    bookingLabel: "Book at Langtree"
+    bookingLabel: "Book at Langtree",
+    claimed: false,
+    sponsored: false
   },
   {
     id: "vizzions-studio",
@@ -156,7 +164,9 @@ export const shops: Shop[] = [
     callUrl: "tel:+17047465088",
     bookingUrl: "https://www.vizzionsstudio.com/booking",
     websiteUrl: "https://www.vizzionsstudio.com/",
-    bookingLabel: "Open booking page"
+    bookingLabel: "Open booking page",
+    claimed: false,
+    sponsored: false
   },
   {
     id: "salon-vanilla",
@@ -182,7 +192,9 @@ export const shops: Shop[] = [
     callUrl: "tel:+17046325424",
     bookingUrl: "https://salonvanilla.co/",
     websiteUrl: "https://salonvanilla.co/",
-    bookingLabel: "Book on shop site"
+    bookingLabel: "Book on shop site",
+    claimed: true,
+    sponsored: false
   },
   {
     id: "valeria-salon",
@@ -208,6 +220,8 @@ export const shops: Shop[] = [
     callUrl: "tel:+17046425166",
     bookingUrl: "https://booksy.com/en-us/1233169_valeria-salon_hair-salon_26782_mooresville",
     websiteUrl: "https://booksy.com/en-us/1233169_valeria-salon_hair-salon_26782_mooresville",
-    bookingLabel: "Book on Booksy"
+    bookingLabel: "Book on Booksy",
+    claimed: false,
+    sponsored: false
   }
 ];

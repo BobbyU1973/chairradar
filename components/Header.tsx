@@ -3,7 +3,8 @@ import Link from "next/link";
 const navItems = [
   { href: "/search", label: "Search" },
   { href: "#how-it-works", label: "How it works" },
-  { href: "#popular-nearby", label: "Nearby shops" }
+  { href: "#popular-nearby", label: "Nearby shops" },
+  { href: "#for-shops", label: "For shops" }
 ];
 
 export function Header() {
@@ -32,7 +33,7 @@ export function Header() {
             href="/search"
             className="rounded-full bg-[color:var(--foreground)] px-4 py-2 text-white transition hover:opacity-90"
           >
-            Find openings
+            Find shops
           </Link>
         </nav>
       </div>

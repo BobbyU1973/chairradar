@@ -6,12 +6,23 @@ export const metadata: Metadata = {
     default: "OpenChair | Find Nearby Haircut Availability Fast",
     template: "%s | OpenChair"
   },
-  description: "OpenChair helps people find nearby haircut availability fast with simple, clear local shop availability.",
+  description:
+    "OpenChair is Yelp/OpenTable for haircut availability, monetized through self-serve promotion and demand capture rather than cold-calling shops.",
   applicationName: "OpenChair",
-  keywords: ["OpenChair", "haircut availability", "barber near me", "book haircut", "salon availability"],
+  keywords: [
+    "OpenChair",
+    "haircut availability",
+    "barber near me",
+    "book haircut",
+    "salon availability",
+    "claim shop",
+    "sponsored listings",
+    "promoted placement"
+  ],
   openGraph: {
     title: "OpenChair",
-    description: "Find nearby haircut availability fast.",
+    description:
+      "Find nearby haircut shops fast while giving merchants a self-serve way to claim profiles and pay for promoted visibility.",
     siteName: "OpenChair",
     type: "website"
   }

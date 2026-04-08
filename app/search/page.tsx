@@ -1,6 +1,6 @@
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
+import { SiteFooter } from "@/components/SiteFooter";
 import { ShopCard } from "@/components/ShopCard";
 import { regionalSearchTerms, shops } from "@/data/shops";
 
@@ -92,6 +92,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               <p>These are real public-facing shop listings centered on the 28117 launch market.</p>
               <p>Each result highlights booking access, phone, walk-ins, pricing, and specialties at a glance.</p>
               <p>Users can click through to the shop site or call directly to reserve a slot.</p>
+              <p>OpenChair monetizes this traffic through self-serve claims, sponsored listings, and promoted placement rather than outbound sales.</p>
               {isFallbackLocationResult ? (
                 <p>
                   No exact match for "{location}" in the current launch market, so OpenChair is showing the nearest available Mooresville-area options.
@@ -128,7 +129,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </div>
       </section>
 
-      <Footer />
+      <SiteFooter />
     </main>
   );
 }

@@ -16,6 +16,11 @@ export function ShopCard({ shop }: ShopCardProps) {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="text-xl font-semibold tracking-tight">{shop.name}</h3>
+              {shop.sponsored ? (
+                <span className="rounded-full bg-[color:var(--accent-soft)] px-3 py-1 text-xs font-semibold text-[color:var(--accent-dark)]">
+                  Sponsored
+                </span>
+              ) : null}
               <span
                 className={[
                   "rounded-full px-3 py-1 text-xs font-semibold",
@@ -66,7 +71,7 @@ export function ShopCard({ shop }: ShopCardProps) {
 
         <div className="mt-6 flex flex-col gap-3 border-t border-[color:var(--line)] pt-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-[color:var(--success)]">
-            {shop.walkInsAvailable ? "Walk-ins welcome" : "Click through or call to reserve"}
+            {shop.claimed ? "Claimed profile" : "Unclaimed profile"}
           </p>
           <span className="inline-flex w-fit rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90">
             View booking options
