@@ -5,11 +5,11 @@ export function Footer() {
         <div>
           <p className="text-lg font-semibold tracking-tight">OpenChair</p>
           <p className="mt-2 max-w-xl text-sm leading-6 text-[color:var(--muted)]">
-            Demo-ready MVP for helping people find nearby haircut availability fast.
+            Live MVP for helping people discover nearby haircut shops and reach them fast.
           </p>
         </div>
         <div className="text-sm text-[color:var(--muted)]">
-          <p>Simple mock data for launch demo use today.</p>
+          <p>Public booking links and call-first discovery around 28117.</p>
           <p className="mt-1">OpenChair © 2026</p>
         </div>
       </div>

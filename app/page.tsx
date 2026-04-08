@@ -21,10 +21,10 @@ export default function HomePage() {
                 Popular nearby
               </p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-                Fast, clear options for people who want a haircut today
+                Real haircut shops around 28117 that people can contact right now
               </h2>
               <p className="mt-3 max-w-2xl text-[color:var(--muted)]">
-                These featured OpenChair listings show the exact kind of simple comparison experience that makes the MVP feel ready for a live demo.
+                OpenChair now focuses on real local shop discovery with public booking pages and direct call links instead of fictional appointment slots.
               </p>
             </div>
             <Link
@@ -47,16 +47,16 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-7xl gap-6 rounded-[36px] border border-[color:var(--line)] bg-white/78 p-6 shadow-[var(--shadow)] lg:grid-cols-3 lg:p-10">
           {[
             {
-              title: "Search in seconds",
-              text: "Enter a haircut need and location to immediately see the strongest nearby options."
+              title: "Search by ZIP or city",
+              text: "Enter 28117 or a nearby community and OpenChair will surface the launch market around Lake Norman."
             },
             {
-              title: "Compare what matters",
-              text: "Distance, ratings, next available time, and pricing show up right away."
+              title: "Compare real public info",
+              text: "See address, phone, booking access, walk-in status, and publicly listed pricing where available."
             },
             {
-              title: "Book with confidence",
-              text: "OpenChair keeps the decision simple so people can move from search to booking fast."
+              title: "Reserve on the shop's terms",
+              text: "OpenChair helps people click through or call the shop directly without adding a heavy booking system yet."
             }
           ].map((item) => (
             <div key={item.title} className="rounded-[28px] bg-[color:var(--panel-strong)] p-6">
@@ -77,14 +77,14 @@ export default function HomePage() {
               Main call to action
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Find nearby haircut availability fast with OpenChair.
+              Find a real nearby haircut shop fast, then click or call to reserve.
             </h2>
           </div>
           <Link
             href="/search"
             className="inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-[color:var(--foreground)]"
           >
-            Search nearby availability
+            Search real nearby shops
           </Link>
         </div>
       </section>

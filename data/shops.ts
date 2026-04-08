@@ -3,134 +3,211 @@ export type Shop = {
   name: string;
   neighborhood: string;
   address: string;
+  city: string;
+  state: string;
+  zip: string;
   distance: string;
-  nextAvailable: string;
-  priceFrom: number;
-  rating: number;
-  reviewCount: number;
+  availabilitySummary: string;
+  priceFrom: number | null;
+  rating: number | null;
+  reviewCount: number | null;
   specialties: string[];
   openNow: boolean;
   walkInsAvailable: boolean;
-  hours: {
-    weekdays: string;
-    saturday: string;
-    sunday: string;
-  };
+  hoursSummary: string[];
+  phone: string;
+  callUrl: string;
+  bookingUrl: string | null;
+  websiteUrl: string;
+  bookingLabel: string;
 };
+
+export const regionalSearchTerms = [
+  "28117",
+  "28115",
+  "28031",
+  "28036",
+  "28078",
+  "28037",
+  "28166",
+  "28625",
+  "28677",
+  "28269",
+  "28216",
+  "mooresville",
+  "lake norman",
+  "cornelius",
+  "davidson",
+  "huntersville",
+  "denver",
+  "troutman",
+  "statesville",
+  "charlotte"
+];
 
 export const shops: Shop[] = [
   {
-    id: "trim-tap",
-    name: "OpenChair Studio",
-    neighborhood: "Downtown",
-    address: "125 Market Street, Downtown",
-    distance: "0.4 mi",
-    nextAvailable: "Today at 12:15 PM",
-    priceFrom: 28,
-    rating: 4.9,
-    reviewCount: 214,
-    specialties: ["Skin fades", "Walk-ins", "Beard trim"],
+    id: "diesel-barbershop-mooresville",
+    name: "Diesel Barbershop Mooresville Town Square",
+    neighborhood: "Town Square",
+    address: "137 Center Square Drive, Suite C",
+    city: "Mooresville",
+    state: "NC",
+    zip: "28117",
+    distance: "28117 area",
+    availabilitySummary: "Walk-ins available and appointments available online",
+    priceFrom: 45,
+    rating: null,
+    reviewCount: null,
+    specialties: ["Men's haircuts", "Beard trim", "Shaves"],
     openNow: true,
     walkInsAvailable: true,
-    hours: {
-      weekdays: "9:00 AM - 7:00 PM",
-      saturday: "9:00 AM - 5:00 PM",
-      sunday: "11:00 AM - 4:00 PM"
-    }
+    hoursSummary: [
+      "Sunday: 11:00 AM - 5:00 PM",
+      "Monday - Friday: 10:00 AM - 8:00 PM",
+      "Saturday: 9:00 AM - 7:00 PM"
+    ],
+    phone: "(980) 444-5217",
+    callUrl: "tel:+19804445217",
+    bookingUrl: "https://www.dieselbarbershop.com/location/mooresville-nc-mooresville-town-square",
+    websiteUrl: "https://www.dieselbarbershop.com/location/mooresville-nc-mooresville-town-square",
+    bookingLabel: "Book on shop site"
   },
   {
-    id: "northside-fade-house",
-    name: "Northside Fade House",
-    neighborhood: "North End",
-    address: "88 North Avenue, North End",
-    distance: "0.9 mi",
-    nextAvailable: "Today at 1:00 PM",
-    priceFrom: 32,
-    rating: 4.8,
-    reviewCount: 167,
-    specialties: ["Kids cuts", "Line ups", "Textured crop"],
+    id: "datre-hair-co",
+    name: "Datre Hair Co.",
+    neighborhood: "Kilson Drive",
+    address: "111 Kilson Dr, Suite 107",
+    city: "Mooresville",
+    state: "NC",
+    zip: "28117",
+    distance: "28117 area",
+    availabilitySummary: "New clients and loyal clients can book online",
+    priceFrom: 27,
+    rating: null,
+    reviewCount: null,
+    specialties: ["Haircuts", "Blowouts", "Color services"],
     openNow: true,
-    walkInsAvailable: true,
-    hours: {
-      weekdays: "10:00 AM - 8:00 PM",
-      saturday: "9:00 AM - 6:00 PM",
-      sunday: "Closed"
-    }
+    walkInsAvailable: false,
+    hoursSummary: [
+      "Sunday - Monday: Closed",
+      "Tuesday - Thursday: 9:00 AM - 9:00 PM",
+      "Friday: 9:00 AM - 5:00 PM",
+      "Saturday: 9:00 AM - 3:00 PM"
+    ],
+    phone: "(980) 777-5258",
+    callUrl: "tel:+19807775258",
+    bookingUrl: "https://www.datrehairco.com/",
+    websiteUrl: "https://www.datrehairco.com/",
+    bookingLabel: "Open booking page"
   },
   {
-    id: "main-street-barbers",
-    name: "Main Street Barbers",
-    neighborhood: "River District",
-    address: "402 Main Street, River District",
-    distance: "1.3 mi",
-    nextAvailable: "Today at 2:30 PM",
-    priceFrom: 25,
+    id: "shears-and-beers-langtree",
+    name: "Shears and Beers at Langtree",
+    neighborhood: "Langtree",
+    address: "119 Landings Dr, Suite 101",
+    city: "Mooresville",
+    state: "NC",
+    zip: "28117",
+    distance: "28117 area",
+    availabilitySummary: "Instant confirmation available through the booking page",
+    priceFrom: 31,
+    rating: 5,
+    reviewCount: 1,
+    specialties: ["Men's haircuts", "Student cuts", "Beard detail"],
+    openNow: true,
+    walkInsAvailable: false,
+    hoursSummary: [
+      "Sunday: Closed",
+      "Monday: 10:00 AM - 5:00 PM",
+      "Tuesday: 11:00 AM - 4:00 PM",
+      "Wednesday: 10:00 AM - 5:00 PM",
+      "Thursday: Closed",
+      "Friday - Saturday: 10:00 AM - 3:00 PM"
+    ],
+    phone: "(704) 237-3592",
+    callUrl: "tel:+17042373592",
+    bookingUrl: "https://www.shearsandbeers.com/locations/",
+    websiteUrl: "https://www.shearsandbeers.com/locations/",
+    bookingLabel: "Book at Langtree"
+  },
+  {
+    id: "vizzions-studio",
+    name: "Vizzions Studio",
+    neighborhood: "Phenix Salon Suites",
+    address: "591-E River Highway, Room 102",
+    city: "Mooresville",
+    state: "NC",
+    zip: "28117",
+    distance: "28117 area",
+    availabilitySummary: "Book online or text the studio directly",
+    priceFrom: null,
+    rating: null,
+    reviewCount: null,
+    specialties: ["Haircuts", "Makeup", "Private studio appointments"],
+    openNow: false,
+    walkInsAvailable: false,
+    hoursSummary: [
+      "Monday - Tuesday: 10:00 AM - 6:00 PM",
+      "Wednesday - Thursday: 10:00 AM - 4:00 PM",
+      "Friday - Sunday: Closed"
+    ],
+    phone: "(704) 746-5088",
+    callUrl: "tel:+17047465088",
+    bookingUrl: "https://www.vizzionsstudio.com/booking",
+    websiteUrl: "https://www.vizzionsstudio.com/",
+    bookingLabel: "Open booking page"
+  },
+  {
+    id: "salon-vanilla",
+    name: "Salon Vanilla",
+    neighborhood: "Town Center Drive",
+    address: "110 Town Center Drive",
+    city: "Mooresville",
+    state: "NC",
+    zip: "28117",
+    distance: "28117 area",
+    availabilitySummary: "Book now on the salon site or call the salon directly",
+    priceFrom: null,
     rating: 4.7,
-    reviewCount: 301,
-    specialties: ["Classic cuts", "Buzz cut", "Senior cuts"],
+    reviewCount: 50,
+    specialties: ["Hair styling", "Color", "Cuts"],
     openNow: true,
     walkInsAvailable: false,
-    hours: {
-      weekdays: "8:00 AM - 6:00 PM",
-      saturday: "8:00 AM - 3:00 PM",
-      sunday: "Closed"
-    }
+    hoursSummary: [
+      "Public site shows current-day hours and booking access online.",
+      "Use the salon site or call ahead to confirm today's opening times."
+    ],
+    phone: "(704) 632-5424",
+    callUrl: "tel:+17046325424",
+    bookingUrl: "https://salonvanilla.co/",
+    websiteUrl: "https://salonvanilla.co/",
+    bookingLabel: "Book on shop site"
   },
   {
-    id: "copper-chair-co",
-    name: "Copper Chair Co.",
-    neighborhood: "West Market",
-    address: "17 Copper Lane, West Market",
-    distance: "1.8 mi",
-    nextAvailable: "Today at 4:45 PM",
-    priceFrom: 36,
-    rating: 4.9,
-    reviewCount: 118,
-    specialties: ["Scissor cuts", "Curly hair", "Consultations"],
-    openNow: false,
-    walkInsAvailable: false,
-    hours: {
-      weekdays: "11:00 AM - 7:00 PM",
-      saturday: "10:00 AM - 5:00 PM",
-      sunday: "12:00 PM - 4:00 PM"
-    }
-  },
-  {
-    id: "east-block-cuts",
-    name: "East Block Cuts",
-    neighborhood: "East Village",
-    address: "240 East Block Road, East Village",
-    distance: "2.1 mi",
-    nextAvailable: "Tomorrow at 9:30 AM",
-    priceFrom: 24,
-    rating: 4.6,
-    reviewCount: 142,
-    specialties: ["Quick trims", "Walk-ins", "Students"],
-    openNow: false,
-    walkInsAvailable: true,
-    hours: {
-      weekdays: "9:30 AM - 6:30 PM",
-      saturday: "9:00 AM - 4:00 PM",
-      sunday: "Closed"
-    }
-  },
-  {
-    id: "atlas-barber-lounge",
-    name: "Atlas Barber Lounge",
-    neighborhood: "Midtown",
-    address: "610 Atlas Plaza, Midtown",
-    distance: "2.7 mi",
-    nextAvailable: "Tomorrow at 10:00 AM",
-    priceFrom: 40,
-    rating: 4.8,
-    reviewCount: 89,
-    specialties: ["Hot towel", "Premium service", "Beard sculpt"],
+    id: "valeria-salon",
+    name: "VALERIA SALON",
+    neighborhood: "River Highway",
+    address: "590 River Hwy E, Suite 125",
+    city: "Mooresville",
+    state: "NC",
+    zip: "28117",
+    distance: "28117 area",
+    availabilitySummary: "Book online through the public Booksy page",
+    priceFrom: 35,
+    rating: 5,
+    reviewCount: 16,
+    specialties: ["Cuts", "Men's haircuts", "Color"],
     openNow: true,
     walkInsAvailable: false,
-    hours: {
-      weekdays: "10:00 AM - 7:00 PM",
-      saturday: "10:00 AM - 5:00 PM",
-      sunday: "12:00 PM - 4:00 PM"
-    }
+    hoursSummary: [
+      "See the Booksy page for the latest appointment calendar.",
+      "Use Booksy or call ahead for current open slots."
+    ],
+    phone: "(704) 642-5166",
+    callUrl: "tel:+17046425166",
+    bookingUrl: "https://booksy.com/en-us/1233169_valeria-salon_hair-salon_26782_mooresville",
+    websiteUrl: "https://booksy.com/en-us/1233169_valeria-salon_hair-salon_26782_mooresville",
+    bookingLabel: "Book on Booksy"
   }
 ];

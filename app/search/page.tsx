@@ -2,7 +2,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { ShopCard } from "@/components/ShopCard";
-import { shops } from "@/data/shops";
+import { regionalSearchTerms, shops } from "@/data/shops";
 
 type SearchPageProps = {
   searchParams?: Promise<{
@@ -18,21 +18,44 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   const normalizedQuery = query.toLowerCase();
   const normalizedLocation = location.toLowerCase();
+  const isZipSearch = /^\d{5}$/.test(normalizedLocation);
+  const isRegionalSearch =
+    normalizedLocation.length === 0 ||
+    normalizedLocation === "near me" ||
+    isZipSearch ||
+    regionalSearchTerms.some((term) => normalizedLocation.includes(term));
 
-  const filteredShops = shops.filter((shop) => {
-    const matchesQuery =
-      normalizedQuery.length === 0 ||
-      shop.name.toLowerCase().includes(normalizedQuery) ||
-      shop.specialties.some((specialty) => specialty.toLowerCase().includes(normalizedQuery)) ||
-      normalizedQuery.includes("haircut");
+  const matchesQuery = (shopName: string, specialties: string[]) =>
+    normalizedQuery.length === 0 ||
+    shopName.toLowerCase().includes(normalizedQuery) ||
+    specialties.some((specialty) => specialty.toLowerCase().includes(normalizedQuery)) ||
+    normalizedQuery.includes("haircut");
 
-    const matchesLocation =
+  const queryMatchedShops = shops.filter((shop) => matchesQuery(shop.name, shop.specialties));
+
+  const locationMatchedShops = queryMatchedShops.filter((shop) => {
+    return (
       normalizedLocation.length === 0 ||
       normalizedLocation === "near me" ||
-      shop.neighborhood.toLowerCase().includes(normalizedLocation);
-
-    return matchesQuery && matchesLocation;
+      shop.neighborhood.toLowerCase().includes(normalizedLocation) ||
+      shop.address.toLowerCase().includes(normalizedLocation) ||
+      shop.city.toLowerCase().includes(normalizedLocation) ||
+      shop.zip.includes(normalizedLocation)
+    );
   });
+
+  const filteredShops = isRegionalSearch
+    ? queryMatchedShops
+    : locationMatchedShops.length > 0
+      ? locationMatchedShops
+      : queryMatchedShops;
+
+  const isFallbackLocationResult =
+    normalizedLocation.length > 0 &&
+    normalizedLocation !== "near me" &&
+    !isRegionalSearch &&
+    locationMatchedShops.length === 0 &&
+    queryMatchedShops.length > 0;
 
   return (
     <main>
@@ -48,7 +71,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               Find nearby haircut availability fast
             </h1>
             <p className="mt-4 text-lg text-[color:var(--muted)]">
-              Showing fast options for <span className="font-semibold text-[color:var(--foreground)]">{query}</span> in{" "}
+              Showing real public shop options for <span className="font-semibold text-[color:var(--foreground)]">{query}</span> in{" "}
               <span className="font-semibold text-[color:var(--foreground)]">{location}</span>.
             </p>
           </div>
@@ -66,19 +89,24 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               Why OpenChair ranks these first
             </p>
             <div className="mt-5 space-y-4 text-sm leading-7 text-[color:var(--muted)]">
-              <p>Sorted by the fastest nearby openings first.</p>
-              <p>Mock results use local data so the MVP is easy to extend later.</p>
-              <p>Each shop highlights pricing, availability, ratings, and specialties at a glance.</p>
+              <p>These are real public-facing shop listings centered on the 28117 launch market.</p>
+              <p>Each result highlights booking access, phone, walk-ins, pricing, and specialties at a glance.</p>
+              <p>Users can click through to the shop site or call directly to reserve a slot.</p>
+              {isFallbackLocationResult ? (
+                <p>
+                  No exact match for "{location}" in the current launch market, so OpenChair is showing the nearest available Mooresville-area options.
+                </p>
+              ) : null}
             </div>
           </aside>
 
           <div>
             <div className="mb-5 flex items-center justify-between gap-4">
               <p className="text-sm text-[color:var(--muted)]">
-                {filteredShops.length} shops with nearby availability
+                {filteredShops.length} real shops in the current launch area
               </p>
               <p className="rounded-full bg-white/80 px-4 py-2 text-sm font-medium">
-                Best for fast booking
+                Call or click to reserve
               </p>
             </div>
 
