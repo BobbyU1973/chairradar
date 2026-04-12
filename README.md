@@ -28,6 +28,8 @@ NEXT_PUBLIC_SITE_URL=https://openchair-six.vercel.app
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 UPSTASH_REDIS_REST_URL=https://example-upstash-url.upstash.io
 UPSTASH_REDIS_REST_TOKEN=example-upstash-token
+KV_REST_API_URL=https://example-vercel-kv-url.upstash.io
+KV_REST_API_TOKEN=example-vercel-kv-token
 OPENCHAIR_ADMIN_KEY=replace-with-a-long-private-admin-key
 ```
 
@@ -36,6 +38,11 @@ This app uses:
 - Vercel Analytics for traffic overview
 - Google Analytics 4 for search, detail-view, call-click, booking-click, and website-click events
 - Upstash Redis REST for persistent outbound click tracking on Vercel
+
+The outbound tracking code supports either Upstash env var naming:
+
+- `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`
+- `KV_REST_API_URL` and `KV_REST_API_TOKEN`
 
 ## Outbound click tracking
 
