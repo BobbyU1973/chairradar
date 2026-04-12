@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { Shop } from "@/data/shops";
 import { trackEvent } from "@/lib/analytics";
+import { getOutboundHref } from "@/lib/outboundActions";
 
 type ShopCardProps = {
   shop: Shop;
@@ -11,6 +12,12 @@ type ShopCardProps = {
 export function ShopCard({ shop }: ShopCardProps) {
   const primaryExternalUrl = shop.bookingUrl ?? shop.websiteUrl;
   const showWebsiteButton = shop.websiteUrl !== primaryExternalUrl;
+  const primaryAction = shop.bookingUrl ? "book_on_website" : "visit_website";
+  const primaryHref = getOutboundHref(shop.id, primaryAction, "results_primary_link");
+  const callHref = getOutboundHref(shop.id, "call_shop", "results_call_button");
+  const inlineCallHref = getOutboundHref(shop.id, "call_shop", "results_inline_phone");
+  const websiteHref = getOutboundHref(shop.id, "visit_website", "results_secondary_website");
+  const directionsHref = getOutboundHref(shop.id, "get_directions", "results_directions");
   const listingType = shop.sponsored ? "sponsored" : "organic";
   const isChain =
     shop.name.includes("Great Clips") ||
@@ -57,7 +64,7 @@ export function ShopCard({ shop }: ShopCardProps) {
               {shop.city}, {shop.state} {shop.zip} | {shop.neighborhood}
             </p>
             <a
-              href={shop.callUrl}
+              href={inlineCallHref}
               onClick={() =>
                 trackEvent("call_click", {
                   ...baseEventParams,
@@ -82,10 +89,6 @@ export function ShopCard({ shop }: ShopCardProps) {
           <span>{shop.availabilitySummary}</span>
         </div>
 
-        <div className="mt-4 rounded-[22px] bg-[color:var(--panel-strong)] px-4 py-3 text-sm font-medium text-[color:var(--foreground)]">
-          {shop.availabilitySummary}
-        </div>
-
         <div className="mt-5 flex flex-wrap gap-2">
           {shop.specialties.map((specialty) => (
             <span
@@ -100,7 +103,7 @@ export function ShopCard({ shop }: ShopCardProps) {
         <div className="mt-6 border-t border-[color:var(--line)] pt-5">
           <div className="grid gap-3 sm:flex sm:flex-wrap sm:justify-end">
             <a
-              href={shop.callUrl}
+              href={callHref}
               onClick={() =>
                 trackEvent("call_click", {
                   ...baseEventParams,
@@ -112,7 +115,7 @@ export function ShopCard({ shop }: ShopCardProps) {
               Call shop
             </a>
             <a
-              href={primaryExternalUrl}
+              href={primaryHref}
               target="_blank"
               rel="noreferrer"
               onClick={() =>
@@ -125,9 +128,23 @@ export function ShopCard({ shop }: ShopCardProps) {
             >
               {shop.bookingUrl ? shop.bookingLabel : "Visit website"}
             </a>
+            <a
+              href={directionsHref}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() =>
+                trackEvent("directions_click", {
+                  ...baseEventParams,
+                  source_surface: "results_directions"
+                })
+              }
+              className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)] sm:w-fit"
+            >
+              Directions
+            </a>
             {showWebsiteButton ? (
               <a
-                href={shop.websiteUrl}
+                href={websiteHref}
                 target="_blank"
                 rel="noreferrer"
                 onClick={() =>

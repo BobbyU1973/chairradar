@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { TrackEvent } from "@/components/TrackEvent";
 import { shops } from "@/data/shops";
+import { getOutboundHref } from "@/lib/outboundActions";
 import { SITE_URL } from "@/lib/site";
 
 type ShopDetailPageProps = {
@@ -73,6 +74,11 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
     source_surface: "detail"
   };
   const showWebsiteButton = shop.websiteUrl !== shop.bookingUrl;
+  const bookingHref = getOutboundHref(shop.id, "book_on_website", "detail_primary_booking");
+  const callHref = getOutboundHref(shop.id, "call_shop", "detail_call_button");
+  const websiteHref = getOutboundHref(shop.id, "visit_website", "detail_website_button");
+  const directionsHref = getOutboundHref(shop.id, "get_directions", "detail_directions_button");
+  const phoneRowHref = getOutboundHref(shop.id, "call_shop", "detail_phone_row");
 
   return (
     <main>
@@ -183,7 +189,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
 
               {shop.bookingUrl ? (
                 <TrackedExternalLink
-                  href={shop.bookingUrl}
+                  href={bookingHref}
                   target="_blank"
                   rel="noreferrer"
                   eventName="booking_click"
@@ -195,7 +201,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
             ) : null}
 
               <TrackedExternalLink
-                href={shop.callUrl}
+                href={callHref}
                 eventName="call_click"
                 eventParams={baseEventParams}
                 className="mt-4 flex w-full items-center justify-center rounded-[22px] bg-[color:var(--foreground)] px-6 py-4 text-base font-semibold text-white transition hover:opacity-90"
@@ -205,7 +211,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
 
               {showWebsiteButton ? (
                 <TrackedExternalLink
-                  href={shop.websiteUrl}
+                  href={websiteHref}
                   target="_blank"
                   rel="noreferrer"
                   eventName="website_click"
@@ -215,6 +221,17 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                   Visit website
                 </TrackedExternalLink>
               ) : null}
+
+              <TrackedExternalLink
+                href={directionsHref}
+                target="_blank"
+                rel="noreferrer"
+                eventName="directions_click"
+                eventParams={baseEventParams}
+                className="mt-4 flex w-full items-center justify-center rounded-[22px] border border-[color:var(--line)] bg-white px-6 py-4 text-base font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)]"
+              >
+                Get directions
+              </TrackedExternalLink>
 
               <div className="mt-6 space-y-4 rounded-[28px] bg-white px-5 py-5">
                 <div className="flex items-center justify-between gap-4 text-sm">
@@ -236,7 +253,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                 <div className="flex items-center justify-between gap-4 text-sm">
                   <span className="text-[color:var(--muted)]">Phone</span>
                   <TrackedExternalLink
-                    href={shop.callUrl}
+                    href={phoneRowHref}
                     eventName="call_click"
                     eventParams={{
                       ...baseEventParams,
@@ -247,6 +264,18 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                     {shop.phone}
                   </TrackedExternalLink>
                 </div>
+              </div>
+
+              <div className="mt-6 rounded-[28px] border border-dashed border-[color:var(--line)] bg-white px-5 py-5">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
+                  Own this listing?
+                </p>
+                <h3 className="mt-3 text-xl font-semibold tracking-tight">
+                  Claim your listing
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
+                  Track clicks to your listing and improve booking links when OpenChair self-serve tools launch.
+                </p>
               </div>
             </aside>
           </div>
