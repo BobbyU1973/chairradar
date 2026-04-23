@@ -32,7 +32,7 @@ export default function NorthCarolinaPage() {
               Find haircut shops in North Carolina.
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-[color:var(--muted)]">
-              ChairRadar is expanding North Carolina market by market. Current live pages focus on real public listings around Lake Norman so users can call, book, visit a shop website, or get directions quickly.
+              ChairRadar is expanding North Carolina market by market. Current live pages include Charlotte and Lake Norman-area public listings so users can call, book, visit a shop website, or get directions quickly.
             </p>
           </div>
 

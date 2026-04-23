@@ -7,6 +7,10 @@ import { locationPages } from "@/data/locationPages";
 import { shops } from "@/data/shops";
 
 const popularSearchPageIds = [
+  "charlotte-haircuts",
+  "charlotte-walk-in-haircuts",
+  "charlotte-28277",
+  "charlotte-mens-haircuts",
   "mooresville-haircuts",
   "mooresville-walk-in-haircuts",
   "mooresville-28117",
@@ -107,7 +111,7 @@ export default function HomePage() {
               Built for statewide and national expansion, without fake local pages
             </h2>
             <p className="mt-3 text-[color:var(--muted)]">
-              ChairRadar can expand market by market, but local pages should stay useful. Current live coverage includes Mooresville, Cornelius, Huntersville, Denver, Sherrills Ford, and nearby ZIPs.
+              ChairRadar can expand market by market, but local pages should stay useful. Current live coverage includes Charlotte, Mooresville, Cornelius, Huntersville, Denver, Sherrills Ford, and nearby ZIPs.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link

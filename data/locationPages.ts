@@ -23,6 +23,8 @@ export type LocationPage = {
 
 const lakeNormanZipCodes = ["28117", "28115", "28031", "28078", "28037", "28673"];
 const lakeNormanCities = ["Mooresville", "Cornelius", "Huntersville", "Denver", "Sherrills Ford"];
+const charlotteZipCodes = ["28209", "28213", "28216", "28226", "28262", "28273", "28277", "28278"];
+const charlotteCities = ["Charlotte"];
 const currentUpdate = "Updated April 2026";
 
 export const locationPages: LocationPage[] = [
@@ -361,6 +363,174 @@ export const locationPages: LocationPage[] = [
     shopFilter: "all",
     lastUpdatedLabel: currentUpdate,
     relatedPageIds: ["denver-haircuts", "denver-walk-in-haircuts", "lake-norman-haircuts"]
+  },
+  {
+    id: "charlotte-haircuts",
+    segments: ["charlotte", "haircuts"],
+    href: "/nc/charlotte/haircuts",
+    areaName: "Charlotte, NC",
+    eyebrow: "Charlotte haircut guide",
+    heading: "Haircut availability in Charlotte, NC",
+    description:
+      "Find Charlotte haircut shops with direct call buttons, public booking links, walk-in signals, and directions.",
+    intro:
+      "ChairRadar helps Charlotte users compare nearby chain check-in pages and public shop listings quickly, then call, check in, book, or get directions from one page.",
+    metaTitle: "Haircut Availability in Charlotte, NC",
+    metaDescription:
+      "Find haircut shops in Charlotte, NC. Compare walk-in options, direct booking links, phone numbers, and directions with ChairRadar.",
+    searchLocation: "Charlotte, NC",
+    zipCodes: charlotteZipCodes,
+    cityNames: charlotteCities,
+    shopFilter: "all",
+    lastUpdatedLabel: currentUpdate,
+    relatedPageIds: ["charlotte-walk-in-haircuts", "charlotte-mens-haircuts", "charlotte-28277"]
+  },
+  {
+    id: "charlotte-walk-in-haircuts",
+    segments: ["charlotte", "walk-in-haircuts"],
+    href: "/nc/charlotte/walk-in-haircuts",
+    areaName: "Charlotte, NC",
+    eyebrow: "Charlotte walk-in guide",
+    heading: "Walk-in haircuts in Charlotte, NC",
+    description:
+      "Compare Charlotte shops with public walk-in or online check-in signals, direct call buttons, and directions.",
+    intro:
+      "For same-day haircut needs in Charlotte, ChairRadar filters toward shops that publicly signal walk-ins, online check-in, or quick call access.",
+    metaTitle: "Walk-In Haircuts in Charlotte, NC",
+    metaDescription:
+      "Need a walk-in haircut in Charlotte, NC? Compare shops, call directly, check in online, or get directions from ChairRadar.",
+    searchLocation: "Charlotte, NC",
+    zipCodes: charlotteZipCodes,
+    cityNames: charlotteCities,
+    shopFilter: "walkIns",
+    lastUpdatedLabel: currentUpdate,
+    relatedPageIds: ["charlotte-haircuts", "charlotte-28277", "charlotte-28209"]
+  },
+  {
+    id: "charlotte-kids-haircuts",
+    segments: ["charlotte", "kids-haircuts"],
+    href: "/nc/charlotte/kids-haircuts",
+    areaName: "Charlotte, NC",
+    eyebrow: "Charlotte kids haircut guide",
+    heading: "Kids haircut options in Charlotte, NC",
+    description:
+      "Compare Charlotte shops that publicly list kids cuts or family-friendly haircut options.",
+    intro:
+      "ChairRadar helps parents find Charlotte haircut shops that list kids cuts, then call, check in, or get directions quickly.",
+    metaTitle: "Kids Haircuts in Charlotte, NC",
+    metaDescription:
+      "Find kids haircut options in Charlotte, NC with direct call buttons, booking links, and directions on ChairRadar.",
+    searchLocation: "Charlotte, NC",
+    zipCodes: charlotteZipCodes,
+    cityNames: charlotteCities,
+    shopFilter: "kids",
+    lastUpdatedLabel: currentUpdate,
+    relatedPageIds: ["charlotte-haircuts", "charlotte-walk-in-haircuts", "charlotte-28277"]
+  },
+  {
+    id: "charlotte-mens-haircuts",
+    segments: ["charlotte", "mens-haircuts"],
+    href: "/nc/charlotte/mens-haircuts",
+    areaName: "Charlotte, NC",
+    eyebrow: "Charlotte men's haircut guide",
+    heading: "Men's haircuts and barbers in Charlotte, NC",
+    description:
+      "Find Charlotte men's haircut shops and barbershop-style options with public phone, check-in, booking, and directions links.",
+    intro:
+      "ChairRadar groups Charlotte men's haircut and boys cut options so users can compare public check-in, phone, and directions links fast.",
+    metaTitle: "Men's Haircuts and Barbers in Charlotte, NC",
+    metaDescription:
+      "Compare men's haircut and barber-style options in Charlotte, NC. See phone numbers, booking links, walk-ins, and directions.",
+    searchLocation: "Charlotte, NC",
+    zipCodes: charlotteZipCodes,
+    cityNames: charlotteCities,
+    shopFilter: "mens",
+    lastUpdatedLabel: currentUpdate,
+    relatedPageIds: ["charlotte-haircuts", "charlotte-walk-in-haircuts", "charlotte-28209"]
+  },
+  {
+    id: "charlotte-28277",
+    segments: ["charlotte", "28277"],
+    href: "/nc/charlotte/28277",
+    areaName: "28277",
+    eyebrow: "28277 haircut guide",
+    heading: "Haircut shops near 28277",
+    description:
+      "Find haircut shops near 28277 with direct phone numbers, public booking links, walk-in signals, and directions.",
+    intro:
+      "ChairRadar gives 28277 users a quick way to compare nearby Charlotte haircut options and move straight to a call, check-in page, or map.",
+    metaTitle: "Haircut Shops Near 28277",
+    metaDescription:
+      "Find haircut shops near 28277. Compare phone numbers, booking links, walk-in options, and directions with ChairRadar.",
+    searchLocation: "28277",
+    zipCodes: ["28277"],
+    cityNames: ["Charlotte"],
+    shopFilter: "all",
+    lastUpdatedLabel: currentUpdate,
+    relatedPageIds: ["charlotte-haircuts", "charlotte-walk-in-haircuts", "charlotte-mens-haircuts"]
+  },
+  {
+    id: "charlotte-28209",
+    segments: ["charlotte", "28209"],
+    href: "/nc/charlotte/28209",
+    areaName: "28209",
+    eyebrow: "28209 haircut guide",
+    heading: "Haircut shops near 28209",
+    description:
+      "Find haircut shops near 28209 with public phone numbers, check-in links, walk-in signals, and directions.",
+    intro:
+      "ChairRadar helps 28209 users compare South End and Park Road-area haircut options with direct phone and public check-in links.",
+    metaTitle: "Haircut Shops Near 28209",
+    metaDescription:
+      "Find haircut shops near 28209. Compare phone numbers, check-in links, walk-in options, and directions with ChairRadar.",
+    searchLocation: "28209",
+    zipCodes: ["28209"],
+    cityNames: ["Charlotte"],
+    shopFilter: "all",
+    lastUpdatedLabel: currentUpdate,
+    relatedPageIds: ["charlotte-haircuts", "charlotte-walk-in-haircuts", "charlotte-mens-haircuts"]
+  },
+  {
+    id: "charlotte-28216",
+    segments: ["charlotte", "28216"],
+    href: "/nc/charlotte/28216",
+    areaName: "28216",
+    eyebrow: "28216 haircut guide",
+    heading: "Haircut shops near 28216",
+    description:
+      "Find haircut shops near 28216 with direct phone numbers, public check-in links, walk-in signals, and directions.",
+    intro:
+      "ChairRadar helps 28216 users compare nearby haircut shops around Riverbend, Northlake, and surrounding Charlotte neighborhoods.",
+    metaTitle: "Haircut Shops Near 28216",
+    metaDescription:
+      "Find haircut shops near 28216. Compare phone numbers, booking links, walk-in options, and directions with ChairRadar.",
+    searchLocation: "28216",
+    zipCodes: ["28216"],
+    cityNames: ["Charlotte"],
+    shopFilter: "all",
+    lastUpdatedLabel: currentUpdate,
+    relatedPageIds: ["charlotte-haircuts", "charlotte-walk-in-haircuts", "charlotte-28273"]
+  },
+  {
+    id: "charlotte-28273",
+    segments: ["charlotte", "28273"],
+    href: "/nc/charlotte/28273",
+    areaName: "28273",
+    eyebrow: "28273 haircut guide",
+    heading: "Haircut shops near 28273",
+    description:
+      "Find haircut shops near 28273 with direct phone numbers, public booking links, walk-in signals, and directions.",
+    intro:
+      "ChairRadar gives 28273 users a fast way to compare Rivergate and Steele Creek haircut options from one mobile-friendly page.",
+    metaTitle: "Haircut Shops Near 28273",
+    metaDescription:
+      "Find haircut shops near 28273. Compare phone numbers, booking links, walk-in options, and directions with ChairRadar.",
+    searchLocation: "28273",
+    zipCodes: ["28273"],
+    cityNames: ["Charlotte"],
+    shopFilter: "all",
+    lastUpdatedLabel: currentUpdate,
+    relatedPageIds: ["charlotte-haircuts", "charlotte-walk-in-haircuts", "charlotte-28216"]
   },
   {
     id: "lake-norman-haircuts",

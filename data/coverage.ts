@@ -13,6 +13,7 @@ export type CoverageArea = {
 };
 
 const liveCityPageIds = [
+  "charlotte-haircuts",
   "mooresville-haircuts",
   "cornelius-haircuts",
   "huntersville-haircuts",
@@ -21,6 +22,10 @@ const liveCityPageIds = [
 ];
 
 const liveZipPageIds = [
+  "charlotte-28277",
+  "charlotte-28209",
+  "charlotte-28216",
+  "charlotte-28273",
   "mooresville-28117",
   "mooresville-28115",
   "cornelius-28031",
@@ -29,6 +34,26 @@ const liveZipPageIds = [
 ];
 
 export const liveCoverageAreas: CoverageArea[] = [
+  {
+    id: "charlotte",
+    name: "Charlotte, NC",
+    stateCode: "NC",
+    stateName: "North Carolina",
+    href: "/nc/charlotte/haircuts",
+    statusLabel: "Live coverage",
+    description:
+      "Real public chain and shop listings across Charlotte with call, check-in, website, and directions links.",
+    pageIds: [
+      "charlotte-haircuts",
+      "charlotte-walk-in-haircuts",
+      "charlotte-kids-haircuts",
+      "charlotte-mens-haircuts",
+      "charlotte-28277",
+      "charlotte-28209",
+      "charlotte-28216",
+      "charlotte-28273"
+    ]
+  },
   {
     id: "lake-norman",
     name: "Lake Norman, NC",
@@ -43,7 +68,6 @@ export const liveCoverageAreas: CoverageArea[] = [
 ];
 
 export const priorityNorthCarolinaMarkets = [
-  "Charlotte",
   "Raleigh",
   "Durham",
   "Greensboro",

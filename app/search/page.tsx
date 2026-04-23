@@ -73,10 +73,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const normalizedQuery = query.toLowerCase();
   const normalizedLocation = location.toLowerCase();
   const isZipSearch = /^\d{5}$/.test(normalizedLocation);
-  const isRegionalSearch =
+  const hasRegionalTerm =
     normalizedLocation.length === 0 ||
     normalizedLocation === "near me" ||
-    isZipSearch ||
     regionalSearchTerms.some((term) => normalizedLocation.includes(term));
 
   const matchesQuery = (shopName: string, specialties: string[]) =>
@@ -98,7 +97,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     );
   });
 
-  const filteredShops = isRegionalSearch
+  const shouldShowAllRegionalResults =
+    normalizedLocation.length === 0 ||
+    normalizedLocation === "near me" ||
+    (hasRegionalTerm && locationMatchedShops.length === 0);
+
+  const filteredShops = shouldShowAllRegionalResults
     ? queryMatchedShops
     : locationMatchedShops.length > 0
       ? locationMatchedShops
