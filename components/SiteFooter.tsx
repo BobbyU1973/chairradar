@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { liveCityPages } from "@/data/coverage";
 import { locationPages } from "@/data/locationPages";
 
 const footerPageIds = [
@@ -16,6 +17,8 @@ const footerPages = footerPageIds
   .map((pageId) => locationPages.find((page) => page.id === pageId))
   .filter((page): page is (typeof locationPages)[number] => Boolean(page));
 
+const liveFooterPages = liveCityPages.slice(0, 4);
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-[color:var(--line)] bg-[rgba(255,252,248,0.86)]">
@@ -26,25 +29,56 @@ export function SiteFooter() {
             Find nearby haircut shops fast with direct call buttons, public booking links, and simple open-now signals.
           </p>
           <div className="mt-5 text-sm text-[color:var(--muted)]">
-            <p>ChairRadar is rolling out across North Carolina market by market, starting around Lake Norman.</p>
+            <p>ChairRadar is built to expand market by market while keeping local pages tied to real public shop listings.</p>
             <p className="mt-1">ChairRadar &copy; 2026</p>
           </div>
         </div>
 
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[color:var(--muted)]">
-            Popular haircut searches
-          </p>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {footerPages.map((page) => (
+        <div className="grid gap-8 md:grid-cols-2">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[color:var(--muted)]">
+              Coverage
+            </p>
+            <div className="mt-4 grid gap-3">
               <Link
-                key={page.id}
-                href={page.href}
+                href="/locations"
                 className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
               >
-                {page.metaTitle}
+                ChairRadar coverage
               </Link>
-            ))}
+              <Link
+                href="/nc"
+                className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
+              >
+                North Carolina haircuts
+              </Link>
+              {liveFooterPages.map((page) => (
+                <Link
+                  key={page.id}
+                  href={page.href}
+                  className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
+                >
+                  {page.areaName}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[color:var(--muted)]">
+              Popular searches
+            </p>
+            <div className="mt-4 grid gap-3">
+              {footerPages.slice(0, 4).map((page) => (
+                <Link
+                  key={page.id}
+                  href={page.href}
+                  className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
+                >
+                  {page.metaTitle}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

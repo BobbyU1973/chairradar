@@ -101,14 +101,28 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl rounded-[36px] border border-[color:var(--line)] bg-white/78 p-6 shadow-[var(--shadow)] lg:p-10">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
-              North Carolina rollout
+              Coverage that can scale
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Starting with Lake Norman, then expanding market by market
+              Built for statewide and national expansion, without fake local pages
             </h2>
             <p className="mt-3 text-[color:var(--muted)]">
-              ChairRadar is focused on making each local page useful before expanding too broadly. The current coverage includes Mooresville, Cornelius, Huntersville, Denver, Sherrills Ford, and nearby ZIPs.
+              ChairRadar can expand market by market, but local pages should stay useful. Current live coverage includes Mooresville, Cornelius, Huntersville, Denver, Sherrills Ford, and nearby ZIPs.
             </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link
+                href="/locations"
+                className="inline-flex rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white"
+              >
+                View coverage
+              </Link>
+              <Link
+                href="/nc"
+                className="inline-flex rounded-full border border-[color:var(--line)] bg-white px-5 py-3 text-sm font-semibold"
+              >
+                North Carolina hub
+              </Link>
+            </div>
           </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">

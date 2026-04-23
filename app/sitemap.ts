@@ -13,6 +13,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 1
     },
+    {
+      url: `${SITE_URL}/locations`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8
+    },
+    {
+      url: `${SITE_URL}/nc`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.78
+    },
     ...locationPages.map((page) => ({
       url: `${SITE_URL}${page.href}`,
       lastModified: now,
