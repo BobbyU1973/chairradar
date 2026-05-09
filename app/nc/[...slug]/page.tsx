@@ -93,6 +93,11 @@ export async function generateMetadata({
       url,
       siteName: "ChairRadar",
       type: "website"
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${page.metaTitle} | ChairRadar`,
+      description: page.metaDescription
     }
   };
 }

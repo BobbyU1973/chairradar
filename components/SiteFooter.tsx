@@ -19,6 +19,13 @@ const footerPages = footerPageIds
 
 const liveFooterPages = liveCityPages.slice(0, 4);
 
+const guideLinks = [
+  { href: "/guides/find-same-day-haircut", label: "Find a same-day haircut" },
+  { href: "/guides/walk-in-haircuts-vs-online-booking", label: "Walk-ins vs booking" },
+  { href: "/guides/find-barber-open-now", label: "Find a barber open now" },
+  { href: "/for-shops/get-more-haircut-customers", label: "For shops" }
+];
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-[color:var(--line)] bg-[rgba(255,252,248,0.86)]">
@@ -34,7 +41,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-3">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[color:var(--muted)]">
               Coverage
@@ -69,6 +76,18 @@ export function SiteFooter() {
               Popular searches
             </p>
             <div className="mt-4 grid gap-3">
+              <Link
+                href="/haircuts/mooresville-nc"
+                className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
+              >
+                Haircuts in Mooresville
+              </Link>
+              <Link
+                href="/barbers-open-now/mooresville-nc"
+                className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
+              >
+                Barbers open now
+              </Link>
               {footerPages.slice(0, 4).map((page) => (
                 <Link
                   key={page.id}
@@ -76,6 +95,23 @@ export function SiteFooter() {
                   className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
                 >
                   {page.metaTitle}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[color:var(--muted)]">
+              Guides
+            </p>
+            <div className="mt-4 grid gap-3">
+              {guideLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
+                >
+                  {item.label}
                 </Link>
               ))}
             </div>

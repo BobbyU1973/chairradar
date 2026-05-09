@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Shop } from "@/data/shops";
 import { trackEvent } from "@/lib/analytics";
 import { getOutboundHref } from "@/lib/outboundActions";
+import { getShopProfilePath } from "@/lib/shopRoutes";
 
 type ShopCardProps = {
   shop: Shop;
@@ -19,6 +20,7 @@ export function ShopCard({ shop, sourcePage = "results" }: ShopCardProps) {
   const inlineCallHref = getOutboundHref(shop.id, "call_shop", `${sourcePage}_inline_phone`);
   const websiteHref = getOutboundHref(shop.id, "visit_website", `${sourcePage}_secondary_website`);
   const directionsHref = getOutboundHref(shop.id, "get_directions", `${sourcePage}_directions`);
+  const profileHref = getShopProfilePath(shop);
   const listingType = shop.sponsored ? "sponsored" : "organic";
   const isChain =
     shop.name.includes("Great Clips") ||
@@ -41,7 +43,7 @@ export function ShopCard({ shop, sourcePage = "results" }: ShopCardProps) {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <Link
-                href={`/shops/${shop.id}`}
+                href={profileHref}
                 onClick={() =>
                   trackEvent("shop_detail_clicked", {
                     ...baseEventParams,
@@ -164,7 +166,7 @@ export function ShopCard({ shop, sourcePage = "results" }: ShopCardProps) {
               </a>
             ) : null}
             <Link
-              href={`/shops/${shop.id}`}
+              href={profileHref}
               onClick={() =>
                 trackEvent("shop_detail_clicked", {
                   ...baseEventParams,

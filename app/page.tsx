@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -5,7 +6,40 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ShopCard } from "@/components/ShopCard";
 import { locationPages } from "@/data/locationPages";
 import { shops } from "@/data/shops";
+import { SITE_URL } from "@/lib/site";
 import { getHomeStructuredData } from "@/lib/structuredData";
+
+export const metadata: Metadata = {
+  title: "Haircut Near Me, Barbers, Salons, and Walk-Ins",
+  description:
+    "ChairRadar helps you find barbershops, salons, and haircut providers near you with walk-in options, same-day availability, booking links, hours, phone numbers, and location details.",
+  alternates: {
+    canonical: SITE_URL
+  },
+  openGraph: {
+    title: "ChairRadar | Haircut Near Me, Barbers, Salons, and Walk-Ins",
+    description:
+      "Find nearby barbershops, salons, and haircut providers with walk-in options, same-day availability, booking links, phone numbers, hours, and directions.",
+    url: SITE_URL,
+    siteName: "ChairRadar",
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "ChairRadar haircut discovery directory"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ChairRadar | Find a Haircut Near You Fast",
+    description:
+      "Find nearby haircut shops, barbers, salons, walk-in options, same-day availability, booking links, phone numbers, hours, and directions.",
+    images: ["/opengraph-image"]
+  }
+};
 
 const popularSearchPageIds = [
   "raleigh-haircuts",
@@ -29,6 +63,14 @@ const popularSearchPageIds = [
 const popularSearchPages = popularSearchPageIds
   .map((pageId) => locationPages.find((page) => page.id === pageId))
   .filter((page): page is (typeof locationPages)[number] => Boolean(page));
+
+const mooresvilleQuickLinks = [
+  { href: "/haircuts/mooresville-nc", label: "Haircuts in Mooresville" },
+  { href: "/barbers/mooresville-nc", label: "Barbers in Mooresville" },
+  { href: "/walk-in-haircuts/mooresville-nc", label: "Walk-in haircuts" },
+  { href: "/kids-haircuts/mooresville-nc", label: "Kids haircuts" },
+  { href: "/barbers-open-now/mooresville-nc", label: "Barbers open now" }
+];
 
 export default function HomePage() {
   const featuredShops = shops.slice(0, 3);
@@ -63,6 +105,20 @@ export default function HomePage() {
           </div>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {mooresvilleQuickLinks.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-[24px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-4 transition hover:-translate-y-1"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--muted)]">
+                  Mooresville, NC
+                </p>
+                <h3 className="mt-2 text-lg font-semibold tracking-tight">
+                  {item.label}
+                </h3>
+              </Link>
+            ))}
             {popularSearchPages.map((page) => (
               <Link
                 key={page.id}

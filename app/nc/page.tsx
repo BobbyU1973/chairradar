@@ -10,11 +10,29 @@ import {
   liveZipPages,
   priorityNorthCarolinaMarkets
 } from "@/data/coverage";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Haircut Shops in North Carolina | ChairRadar",
   description:
-    "Find North Carolina haircut shops with real public phone numbers, booking links, walk-in info, and directions. Current live coverage includes Raleigh, Charlotte, and Lake Norman."
+    "Find North Carolina haircut shops with real public phone numbers, booking links, walk-in info, and directions. Current live coverage includes Raleigh, Charlotte, and Lake Norman.",
+  alternates: {
+    canonical: `${SITE_URL}/nc`
+  },
+  openGraph: {
+    title: "Haircut Shops in North Carolina | ChairRadar",
+    description:
+      "Find North Carolina haircut shops with phone numbers, booking links, walk-in info, and directions.",
+    url: `${SITE_URL}/nc`,
+    siteName: "ChairRadar",
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Haircut Shops in North Carolina | ChairRadar",
+    description:
+      "Find North Carolina haircut shops with phone numbers, booking links, walk-in info, and directions."
+  }
 };
 
 export default function NorthCarolinaPage() {

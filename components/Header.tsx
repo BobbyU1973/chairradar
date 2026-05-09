@@ -3,7 +3,8 @@ import Link from "next/link";
 const navItems = [
   { href: "/search", label: "Search" },
   { href: "/locations", label: "Coverage" },
-  { href: "/#how-it-works", label: "How it works" },
+  { href: "/guides/find-same-day-haircut", label: "Guides" },
+  { href: "/for-shops/get-more-haircut-customers", label: "For shops" },
   { href: "/#popular-nearby", label: "Nearby shops" }
 ];
 

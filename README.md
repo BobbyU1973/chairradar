@@ -1,6 +1,8 @@
 # ChairRadar
 
-ChairRadar is a simple MVP for helping people find nearby haircut availability fast.
+ChairRadar is a lightweight haircut, barber, and salon discovery directory. It helps people quickly find nearby haircut providers with walk-in options, same-day availability signals, booking links, phone numbers, hours, and location details.
+
+ChairRadar is not a full live-booking platform. It links users to shop websites, booking links, phone numbers, and directions.
 
 ## Stack
 
@@ -8,7 +10,7 @@ ChairRadar is a simple MVP for helping people find nearby haircut availability f
 - TypeScript
 - Tailwind CSS
 - App Router
-- Local mock data
+- Local shop data
 
 ## Getting started
 
@@ -24,7 +26,7 @@ Then open `http://localhost:3000`.
 Create a `.env.local` file with:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://openchair-six.vercel.app
+NEXT_PUBLIC_SITE_URL=https://chairradar.com
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 UPSTASH_REDIS_REST_URL=https://example-upstash-url.upstash.io
 UPSTASH_REDIS_REST_TOKEN=example-upstash-token
@@ -32,8 +34,6 @@ KV_REST_API_URL=https://example-vercel-kv-url.upstash.io
 KV_REST_API_TOKEN=example-vercel-kv-token
 CHAIRRADAR_ADMIN_KEY=replace-with-a-long-private-admin-key
 ```
-
-The current Vercel URL may still include the old project slug until a ChairRadar domain is connected.
 
 This app uses:
 
@@ -56,6 +56,7 @@ Tracked actions:
 - Book on Website
 - Visit Website
 - Get Directions
+- Claim Listing
 
 The hidden internal report is available at:
 
@@ -63,4 +64,16 @@ The hidden internal report is available at:
 /internal/outbound-clicks?key=YOUR_CHAIRRADAR_ADMIN_KEY
 ```
 
-The report is not indexed and requires `CHAIRRADAR_ADMIN_KEY`. Existing deployments can keep using `OPENCHAIR_ADMIN_KEY` as a fallback until the Vercel environment variable is renamed. If Upstash is not configured, no fake metrics are shown.
+The report is not indexed and requires `CHAIRRADAR_ADMIN_KEY`. If Upstash is not configured, no fake metrics are shown.
+
+## SEO routes
+
+The app includes focused local and guide routes such as:
+
+- `/haircuts/mooresville-nc`
+- `/barbers/mooresville-nc`
+- `/walk-in-haircuts/mooresville-nc`
+- `/kids-haircuts/mooresville-nc`
+- `/barbers-open-now/mooresville-nc`
+- `/guides/find-same-day-haircut`
+- `/for-shops/get-more-haircut-customers`

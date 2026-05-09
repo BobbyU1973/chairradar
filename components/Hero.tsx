@@ -11,10 +11,13 @@ export function Hero() {
             Find local haircut options
           </span>
           <h1 className="mt-6 text-4xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-5xl lg:text-6xl">
-            Find a haircut near you fast.
+            Find a haircut near you today.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-8 text-[color:var(--muted)]">
-            See nearby haircut shops with call buttons, booking links, walk-in info, and directions - starting with Lake Norman, Charlotte, Raleigh, and nearby ZIPs.
+            ChairRadar helps you find barbershops, salons, and haircut providers near you with walk-in options, same-day availability, online haircut booking links, phone numbers, hours, and location details.
+          </p>
+          <p className="mt-4 max-w-xl text-base leading-7 text-[color:var(--muted)]">
+            Search haircut near me, barber near me, barbershop open now, walk-in haircut, same-day haircut, or kids haircut near me without digging through a dozen tabs.
           </p>
 
           <div className="mt-8">
@@ -22,7 +25,7 @@ export function Hero() {
           </div>
 
           <p className="mt-5 text-sm font-semibold text-[color:var(--muted)]">
-            Real public shop pages. Real phone numbers. No fake availability counters.
+            Lightweight discovery only: real public shop pages, real phone numbers, no fake availability counters.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">

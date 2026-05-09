@@ -1,10 +1,16 @@
 import type { LocationPage } from "@/data/locationPages";
 import type { Shop } from "@/data/shops";
 import { SITE_URL } from "@/lib/site";
+import { getShopProfilePath } from "@/lib/shopRoutes";
 
 type BreadcrumbItem = {
   name: string;
   url: string;
+};
+
+export type FAQItem = {
+  question: string;
+  answer: string;
 };
 
 export function getHomeStructuredData() {
@@ -19,7 +25,7 @@ export function getHomeStructuredData() {
       name: "ChairRadar",
       url: SITE_URL,
       description:
-        "ChairRadar helps people find nearby haircut shops fast with public phone numbers, booking links, walk-in info, and directions.",
+        "ChairRadar helps people quickly find nearby barbershops, salons, and haircut providers with walk-in options, same-day availability, booking links, phone numbers, hours, and location details.",
       areaServed: {
         "@type": "State",
         name: "North Carolina"
@@ -32,7 +38,7 @@ export function getHomeStructuredData() {
       url: SITE_URL,
       name: "ChairRadar",
       description:
-        "Find a haircut near you fast with nearby haircut shops, public booking links, call buttons, and directions.",
+        "Find a haircut near you fast with nearby barbershops, salons, public booking links, call buttons, hours, and directions.",
       publisher: {
         "@id": organizationId
       },
@@ -66,13 +72,43 @@ export function getBreadcrumbStructuredData(items: BreadcrumbItem[]) {
   };
 }
 
+export function getFAQStructuredData(items: FAQItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer
+      }
+    }))
+  };
+}
+
+function isBarberShop(shop: Shop) {
+  return shop.specialties.some((specialty) => {
+    const normalized = specialty.toLowerCase();
+    return (
+      normalized.includes("barber") ||
+      normalized.includes("beard") ||
+      normalized.includes("fade") ||
+      normalized.includes("men")
+    );
+  });
+}
+
 export function getShopStructuredData(shop: Shop) {
-  const shopUrl = `${SITE_URL}/shops/${shop.id}`;
+  const shopUrl = `${SITE_URL}${getShopProfilePath(shop)}`;
   const sameAs = Array.from(new Set([shop.websiteUrl, shop.bookingUrl].filter(Boolean)));
+  const businessTypes = isBarberShop(shop)
+    ? ["LocalBusiness", "HairSalon", "BarberShop"]
+    : ["LocalBusiness", "HairSalon"];
 
   return {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "HairSalon"],
+    "@type": businessTypes,
     "@id": `${shopUrl}#business`,
     name: shop.name,
     description: shop.availabilitySummary,
@@ -131,7 +167,7 @@ export function getLocationPageStructuredData(page: LocationPage, pageShops: Sho
           "@type": "ListItem",
           position: index + 1,
           name: shop.name,
-          url: `${SITE_URL}/shops/${shop.id}`
+          url: `${SITE_URL}${getShopProfilePath(shop)}`
         }))
       }
     },

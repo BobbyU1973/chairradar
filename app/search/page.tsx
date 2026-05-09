@@ -6,11 +6,15 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ShopCard } from "@/components/ShopCard";
 import { TrackEvent } from "@/components/TrackEvent";
 import { regionalSearchTerms, shops, type Shop } from "@/data/shops";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Search Haircut Shops",
   description:
     "Search ChairRadar for nearby haircut shops, walk-in options, and public booking links in the current North Carolina launch coverage area.",
+  alternates: {
+    canonical: `${SITE_URL}/search`
+  },
   robots: {
     index: false,
     follow: true

@@ -2,8 +2,7 @@ import { shops } from "@/data/shops";
 import { outboundActionLabels, type OutboundAction } from "@/lib/outboundActions";
 
 const PRIMARY_OUTBOUND_CLICKS_KEY = "chairradar:outbound_clicks:v1";
-const LEGACY_OUTBOUND_CLICKS_KEY = "openchair:outbound_clicks:v1";
-const OUTBOUND_CLICKS_KEYS = [PRIMARY_OUTBOUND_CLICKS_KEY, LEGACY_OUTBOUND_CLICKS_KEY];
+const OUTBOUND_CLICKS_KEYS = [PRIMARY_OUTBOUND_CLICKS_KEY];
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 

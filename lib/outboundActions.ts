@@ -4,7 +4,8 @@ export const outboundActionLabels = {
   call_shop: "Call Shop",
   book_on_website: "Book on Website",
   visit_website: "Visit Website",
-  get_directions: "Get Directions"
+  get_directions: "Get Directions",
+  claim_listing: "Claim Listing"
 } as const;
 
 export type OutboundAction = keyof typeof outboundActionLabels;
@@ -29,6 +30,10 @@ export function getOutboundDestination(shop: Shop, action: OutboundAction) {
 
   if (action === "visit_website") {
     return shop.websiteUrl;
+  }
+
+  if (action === "claim_listing") {
+    return `/for-shops/get-more-haircut-customers?shop=${encodeURIComponent(shop.id)}`;
   }
 
   return getDirectionsUrl(shop);

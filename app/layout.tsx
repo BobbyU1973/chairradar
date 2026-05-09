@@ -8,14 +8,14 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ChairRadar | Find a Haircut Near You Fast",
+    default: "ChairRadar | Haircut Near Me, Barbers, Salons, and Walk-Ins",
     template: "%s | ChairRadar"
   },
   verification: {
     google: "Vw9myqX8OlyKcfUvRSAfE00UMDuKrcHaebJiTozf1yA"
   },
   description:
-    "Find nearby haircut shops fast with call buttons, booking links, walk-in info, public shop pages, and directions on ChairRadar.",
+    "ChairRadar helps people quickly find nearby barbershops, salons, and haircut providers with walk-in options, same-day availability, booking links, phone numbers, hours, and location details.",
   applicationName: "ChairRadar",
   keywords: [
     "ChairRadar",
@@ -29,12 +29,27 @@ export const metadata: Metadata = {
     "barbershop north carolina"
   ],
   openGraph: {
-    title: "ChairRadar",
+    title: "ChairRadar | Find Nearby Haircuts Fast",
     description:
-      "Find nearby haircut shops fast with call buttons, booking links, walk-in info, public shop pages, and directions.",
+      "Find nearby barbershops, salons, and haircut providers with walk-in options, same-day availability, booking links, phone numbers, hours, and directions.",
     url: SITE_URL,
     siteName: "ChairRadar",
-    type: "website"
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "ChairRadar haircut discovery directory"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ChairRadar | Find Nearby Haircuts Fast",
+    description:
+      "Find nearby barbershops, salons, and haircut providers with walk-in options, booking links, phone numbers, hours, and directions.",
+    images: ["/opengraph-image"]
   }
 };
 

@@ -29,8 +29,7 @@ export default async function OutboundClicksPage({
   searchParams
 }: OutboundClicksPageProps) {
   const params = (await searchParams) ?? {};
-  const adminKey =
-    process.env.CHAIRRADAR_ADMIN_KEY?.trim() || process.env.OPENCHAIR_ADMIN_KEY?.trim();
+  const adminKey = process.env.CHAIRRADAR_ADMIN_KEY?.trim();
   const suppliedKey = (params.key ?? params.adminKey ?? "").trim();
 
   if (!adminKey || suppliedKey !== adminKey) {
@@ -79,7 +78,7 @@ export default async function OutboundClicksPage({
           </h1>
           <p className="mt-4 max-w-3xl text-[color:var(--muted)]">
             This hidden report shows only real outbound clicks stored from tracked call,
-            booking, website, and directions actions. No fake counters are shown.
+            booking, website, directions, and claim-listing actions. No fake counters are shown.
           </p>
 
           {!stats.storageConfigured ? (

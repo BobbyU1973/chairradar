@@ -9,7 +9,7 @@ const responseHeaders = {
 };
 
 function getAdminKey() {
-  return process.env.CHAIRRADAR_ADMIN_KEY?.trim() || process.env.OPENCHAIR_ADMIN_KEY?.trim() || "";
+  return process.env.CHAIRRADAR_ADMIN_KEY?.trim() || "";
 }
 
 function getIndexNowKey() {

@@ -12,11 +12,29 @@ import {
   nationalExpansionPrinciples,
   priorityNorthCarolinaMarkets
 } from "@/data/coverage";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "ChairRadar Coverage | Find Haircut Shops Near You",
   description:
-    "See where ChairRadar currently has real haircut shop coverage and how the lightweight haircut discovery model can expand market by market across North Carolina and beyond."
+    "See where ChairRadar currently has real haircut shop coverage and how the lightweight haircut discovery model can expand market by market across North Carolina and beyond.",
+  alternates: {
+    canonical: `${SITE_URL}/locations`
+  },
+  openGraph: {
+    title: "ChairRadar Coverage | Find Haircut Shops Near You",
+    description:
+      "See where ChairRadar currently has real haircut shop coverage across North Carolina.",
+    url: `${SITE_URL}/locations`,
+    siteName: "ChairRadar",
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ChairRadar Coverage | Find Haircut Shops Near You",
+    description:
+      "See where ChairRadar currently has real haircut shop coverage across North Carolina."
+  }
 };
 
 export default function LocationsPage() {
