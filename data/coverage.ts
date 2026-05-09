@@ -143,27 +143,29 @@ export const liveCoverageAreas: CoverageArea[] = [
 
 export const priorityNorthCarolinaMarkets = [
   "Durham",
-  "Cary",
   "Greensboro",
   "Winston-Salem",
-  "Wilmington",
-  "Asheville",
   "Fayetteville",
-  "Concord",
-  "Gastonia",
-  "Chapel Hill",
+  "Cary",
+  "Wilmington",
   "High Point",
+  "Concord",
   "Greenville",
-  "Apex",
-  "Burlington"
+  "Gastonia",
+  "Boone",
+  "Rocky Mount",
+  "Kitty Hawk",
+  "Lenoir"
 ];
 
 export const prioritySoutheastMarkets = [
   "Charleston, SC",
   "Columbia, SC",
-  "Greenville, SC",
-  "Myrtle Beach, SC",
+  "Greenville-Spartanburg, SC",
   "Atlanta, GA",
+  "Anderson, SC",
+  "Myrtle Beach, SC",
+  "North Myrtle Beach, SC",
   "Savannah, GA",
   "Augusta, GA",
   "Nashville, TN",
