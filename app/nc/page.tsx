@@ -8,14 +8,15 @@ import {
   liveCoverageAreas,
   liveShopCount,
   liveZipPages,
-  priorityNorthCarolinaMarkets
+  priorityNorthCarolinaMarkets,
+  prioritySoutheastMarkets
 } from "@/data/coverage";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Haircut Shops in North Carolina | ChairRadar",
   description:
-    "Find North Carolina haircut shops with real public phone numbers, booking links, walk-in info, and directions. Current live coverage includes Raleigh, Charlotte, and Lake Norman.",
+    "Find North Carolina haircut shops with real public phone numbers, booking links, walk-in info, and directions. Current live coverage includes Raleigh, Charlotte, Lake Norman, and fast-growing local markets across the state.",
   alternates: {
     canonical: `${SITE_URL}/nc`
   },
@@ -50,7 +51,7 @@ export default function NorthCarolinaPage() {
               Find haircut shops in North Carolina.
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-[color:var(--muted)]">
-              ChairRadar is expanding North Carolina market by market. Current live pages include Raleigh, Charlotte, and Lake Norman-area public listings so users can call, book, visit a shop website, or get directions quickly.
+              ChairRadar is expanding North Carolina market by market. Current live pages include Raleigh, Charlotte, Lake Norman, Mooresville, Cornelius, Huntersville, Denver, and Sherrills Ford so users can call, book, visit a shop website, or get directions quickly.
             </p>
           </div>
 
@@ -166,16 +167,26 @@ export default function NorthCarolinaPage() {
       <section className="px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mx-auto rounded-[36px] border border-[color:var(--line)] bg-[color:var(--foreground)] p-6 text-white shadow-[var(--shadow)] lg:max-w-7xl lg:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/60">
-            Expansion candidates
+            Expansion queue
           </p>
           <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight">
-            More North Carolina markets can be added once real listings are ready.
+            More North Carolina markets can be added once real listings are ready, then the same system can fan out across the Southeast.
           </h2>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-white/70">
             These are not fake coverage pages. They are the logical next places to build real shop data for statewide reach.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             {priorityNorthCarolinaMarkets.map((market) => (
+              <span key={market} className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium">
+                {market}
+              </span>
+            ))}
+          </div>
+          <p className="mt-8 text-sm font-semibold uppercase tracking-[0.24em] text-white/60">
+            Southeast after North Carolina
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {prioritySoutheastMarkets.map((market) => (
               <span key={market} className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium">
                 {market}
               </span>

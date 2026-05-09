@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShopCard } from "@/components/ShopCard";
+import { getLocalSeoPageByHref } from "@/data/localSeoPages";
 import { locationPages } from "@/data/locationPages";
 import { shops } from "@/data/shops";
 import { SITE_URL } from "@/lib/site";
@@ -64,13 +65,24 @@ const popularSearchPages = popularSearchPageIds
   .map((pageId) => locationPages.find((page) => page.id === pageId))
   .filter((page): page is (typeof locationPages)[number] => Boolean(page));
 
-const mooresvilleQuickLinks = [
-  { href: "/haircuts/mooresville-nc", label: "Haircuts in Mooresville" },
-  { href: "/barbers/mooresville-nc", label: "Barbers in Mooresville" },
-  { href: "/walk-in-haircuts/mooresville-nc", label: "Walk-in haircuts" },
-  { href: "/kids-haircuts/mooresville-nc", label: "Kids haircuts" },
-  { href: "/barbers-open-now/mooresville-nc", label: "Barbers open now" }
+const featuredLocalHrefSet = [
+  "/haircuts/raleigh-nc",
+  "/barbers/raleigh-nc",
+  "/haircuts/charlotte-nc",
+  "/barbers/charlotte-nc",
+  "/haircuts/mooresville-nc",
+  "/walk-in-haircuts/mooresville-nc",
+  "/haircuts/cornelius-nc",
+  "/haircuts/huntersville-nc",
+  "/haircuts/denver-nc",
+  "/haircuts/sherrills-ford-nc",
+  "/haircuts/lake-norman-nc",
+  "/barbers-open-now/lake-norman-nc"
 ];
+
+const featuredLocalPages = featuredLocalHrefSet
+  .map((href) => getLocalSeoPageByHref(href))
+  .filter((page): page is NonNullable<ReturnType<typeof getLocalSeoPageByHref>> => Boolean(page));
 
 export default function HomePage() {
   const featuredShops = shops.slice(0, 3);
@@ -97,25 +109,25 @@ export default function HomePage() {
               </h2>
             </div>
             <Link
-              href="/nc/raleigh/haircuts"
+              href="/nc"
               className="inline-flex w-fit rounded-full border border-[color:var(--line)] bg-white px-5 py-3 text-sm font-semibold"
             >
-              Browse Raleigh
+              Browse North Carolina
             </Link>
           </div>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {mooresvilleQuickLinks.map((item) => (
+            {featuredLocalPages.map((page) => (
               <Link
-                key={item.href}
-                href={item.href}
+                key={page.href}
+                href={page.href}
                 className="rounded-[24px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-4 transition hover:-translate-y-1"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--muted)]">
-                  Mooresville, NC
+                  {page.areaName}
                 </p>
                 <h3 className="mt-2 text-lg font-semibold tracking-tight">
-                  {item.label}
+                  {page.metaTitle}
                 </h3>
               </Link>
             ))}

@@ -6,13 +6,9 @@ import { SearchBar } from "@/components/SearchBar";
 import { ShopCard } from "@/components/ShopCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
-  getLocationPageShops,
-  locationPages
-} from "@/data/locationPages";
-import type { Shop } from "@/data/shops";
-import {
   getLocalSeoPage,
   getLocalSeoPageByHref,
+  getLocalSeoPageShops,
   localSeoPages
 } from "@/data/localSeoPages";
 import { SITE_URL } from "@/lib/site";
@@ -28,32 +24,6 @@ type LocalSeoRouteProps = {
     market: string;
   }>;
 };
-
-function getLocationPage(locationPageId: string) {
-  return locationPages.find((page) => page.id === locationPageId);
-}
-
-function isBarberLike(shop: Shop) {
-  return shop.specialties.some((specialty) => {
-    const normalized = specialty.toLowerCase();
-    return (
-      normalized.includes("barber") ||
-      normalized.includes("men") ||
-      normalized.includes("boys") ||
-      normalized.includes("beard") ||
-      normalized.includes("fade")
-    );
-  });
-}
-
-function refineLocalShops(intent: string, shops: Shop[]) {
-  if (intent === "barbers-open-now") {
-    const barberShops = shops.filter((shop) => shop.openNow && isBarberLike(shop));
-    return barberShops.length > 0 ? barberShops : shops;
-  }
-
-  return shops;
-}
 
 export function generateStaticParams() {
   return localSeoPages.map((page) => ({
@@ -105,13 +75,7 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
     notFound();
   }
 
-  const sourceLocationPage = getLocationPage(page.locationPageId);
-
-  if (!sourceLocationPage) {
-    notFound();
-  }
-
-  const pageShops = refineLocalShops(page.intent, getLocationPageShops(sourceLocationPage));
+  const pageShops = getLocalSeoPageShops(page);
   const pageUrl = `${SITE_URL}${page.href}`;
   const structuredData = [
     {
@@ -168,7 +132,7 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
             </p>
             <div className="mt-8 max-w-3xl">
               <SearchBar
-                defaultLocation={sourceLocationPage.searchLocation}
+                defaultLocation={page.searchLocation}
                 buttonLabel={page.ctaLabel}
               />
             </div>
@@ -182,10 +146,10 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
               {pageShops.length} local options
             </p>
             <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
-              Start here for haircut near me, barber near me, barbershop open now, walk-in haircut, same-day haircut, kids haircut near me, and online haircut booking searches in Mooresville.
+              {page.quickAnswer}
             </p>
             <Link
-              href={`/search?query=Haircut&location=${encodeURIComponent(sourceLocationPage.searchLocation)}`}
+              href={`/search?query=Haircut&location=${encodeURIComponent(page.searchLocation)}`}
               className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white"
             >
               Browse shops
@@ -199,17 +163,17 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <h2 className="text-3xl font-semibold tracking-tight">
-                Nearby shops in Mooresville
+                {page.shopSectionHeading}
               </h2>
               <p className="mt-3 max-w-2xl text-[color:var(--muted)]">
-                Compare public phone numbers, booking links, walk-in notes, services, hours, and directions. Call ahead when timing matters.
+                {page.shopSectionDescription}
               </p>
             </div>
             <Link
-              href={sourceLocationPage.href}
+              href={page.browseHref}
               className="inline-flex w-fit rounded-full border border-[color:var(--line)] bg-white px-5 py-3 text-sm font-semibold"
             >
-              View full local page
+              {page.browseLabel}
             </Link>
           </div>
 

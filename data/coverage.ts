@@ -50,7 +50,7 @@ export const liveCoverageAreas: CoverageArea[] = [
     name: "Charlotte, NC",
     stateCode: "NC",
     stateName: "North Carolina",
-    href: "/nc/charlotte/haircuts",
+    href: "/haircuts/charlotte-nc",
     statusLabel: "Live coverage",
     description:
       "Real public chain and shop listings across Charlotte with call, check-in, website, and directions links.",
@@ -61,18 +61,73 @@ export const liveCoverageAreas: CoverageArea[] = [
     name: "Raleigh, NC",
     stateCode: "NC",
     stateName: "North Carolina",
-    href: "/nc/raleigh/haircuts",
+    href: "/haircuts/raleigh-nc",
     statusLabel: "Live coverage",
     description:
       "Real public chain and shop listings across Raleigh with call, check-in, website, and directions links.",
     pageIds: getPageIdsByPrefix(["raleigh-"])
   },
   {
+    id: "mooresville",
+    name: "Mooresville, NC",
+    stateCode: "NC",
+    stateName: "North Carolina",
+    href: "/haircuts/mooresville-nc",
+    statusLabel: "Live coverage",
+    description:
+      "Real public shop listings across Mooresville with walk-in signals, booking links, call buttons, and directions.",
+    pageIds: getPageIdsByPrefix(["mooresville-"])
+  },
+  {
+    id: "cornelius",
+    name: "Cornelius, NC",
+    stateCode: "NC",
+    stateName: "North Carolina",
+    href: "/haircuts/cornelius-nc",
+    statusLabel: "Live coverage",
+    description:
+      "Real public haircut listings in Cornelius with direct phone numbers, walk-in signals, and public booking paths.",
+    pageIds: getPageIdsByPrefix(["cornelius-"])
+  },
+  {
+    id: "huntersville",
+    name: "Huntersville, NC",
+    stateCode: "NC",
+    stateName: "North Carolina",
+    href: "/haircuts/huntersville-nc",
+    statusLabel: "Live coverage",
+    description:
+      "Real public haircut listings in Huntersville with phone numbers, check-in access, booking links, and directions.",
+    pageIds: getPageIdsByPrefix(["huntersville-"])
+  },
+  {
+    id: "denver",
+    name: "Denver, NC",
+    stateCode: "NC",
+    stateName: "North Carolina",
+    href: "/haircuts/denver-nc",
+    statusLabel: "Live coverage",
+    description:
+      "Real public haircut listings in Denver with walk-in signals, booking links, phone numbers, and directions.",
+    pageIds: getPageIdsByPrefix(["denver-"])
+  },
+  {
+    id: "sherrills-ford",
+    name: "Sherrills Ford, NC",
+    stateCode: "NC",
+    stateName: "North Carolina",
+    href: "/haircuts/sherrills-ford-nc",
+    statusLabel: "Live coverage",
+    description:
+      "Live public shop coverage for Sherrills Ford inside the Lake Norman footprint, with direct call and booking paths.",
+    pageIds: ["lake-norman-haircuts"]
+  },
+  {
     id: "lake-norman",
     name: "Lake Norman, NC",
     stateCode: "NC",
     stateName: "North Carolina",
-    href: "/nc/lake-norman/haircuts",
+    href: "/haircuts/lake-norman-nc",
     statusLabel: "Live coverage",
     description:
       "Real public haircut listings across Mooresville, Cornelius, Huntersville, Denver, Sherrills Ford, and nearby ZIPs.",
@@ -96,7 +151,29 @@ export const priorityNorthCarolinaMarkets = [
   "Fayetteville",
   "Concord",
   "Gastonia",
-  "Chapel Hill"
+  "Chapel Hill",
+  "High Point",
+  "Greenville",
+  "Apex",
+  "Burlington"
+];
+
+export const prioritySoutheastMarkets = [
+  "Charleston, SC",
+  "Columbia, SC",
+  "Greenville, SC",
+  "Myrtle Beach, SC",
+  "Atlanta, GA",
+  "Savannah, GA",
+  "Augusta, GA",
+  "Nashville, TN",
+  "Knoxville, TN",
+  "Chattanooga, TN",
+  "Jacksonville, FL",
+  "Orlando, FL",
+  "Tampa, FL",
+  "Birmingham, AL",
+  "Huntsville, AL"
 ];
 
 export const nationalExpansionPrinciples = [

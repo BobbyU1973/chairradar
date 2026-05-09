@@ -10,7 +10,8 @@ import {
   liveShopCount,
   liveZipCodes,
   nationalExpansionPrinciples,
-  priorityNorthCarolinaMarkets
+  priorityNorthCarolinaMarkets,
+  prioritySoutheastMarkets
 } from "@/data/coverage";
 import { SITE_URL } from "@/lib/site";
 
@@ -52,7 +53,7 @@ export default function LocationsPage() {
               Find haircut shops by area.
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-[color:var(--muted)]">
-              ChairRadar is built to expand nationally, but local pages should stay useful. Current live coverage starts with real public shop listings in Raleigh, Charlotte, and around Lake Norman.
+              ChairRadar is pushing statewide market by market, but local pages still need to stay useful. Current live coverage includes real public shop listings across Raleigh, Charlotte, Lake Norman, Mooresville, Cornelius, Huntersville, Denver, and Sherrills Ford.
             </p>
             <div className="mt-8 max-w-3xl">
               <SearchBar buttonLabel="Search current coverage" />
@@ -88,10 +89,10 @@ export default function LocationsPage() {
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
                 Current live coverage
               </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-                Start where ChairRadar already has real listings.
-              </h2>
-            </div>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+              Start where ChairRadar already has real listings.
+            </h2>
+          </div>
             <Link
               href="/nc"
               className="inline-flex w-fit rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white"
@@ -166,13 +167,23 @@ export default function LocationsPage() {
 
           <div className="rounded-[36px] border border-[color:var(--line)] bg-[color:var(--foreground)] p-6 text-white shadow-[var(--shadow)] lg:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/60">
-              Expansion candidates
+              North Carolina queue
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight">
               Next NC markets to add once listings are ready
             </h2>
             <div className="mt-6 flex flex-wrap gap-2">
               {priorityNorthCarolinaMarkets.map((market) => (
+                <span key={market} className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium">
+                  {market}
+                </span>
+              ))}
+            </div>
+            <p className="mt-8 text-sm font-semibold uppercase tracking-[0.24em] text-white/60">
+              Southeast queue
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {prioritySoutheastMarkets.map((market) => (
                 <span key={market} className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium">
                   {market}
                 </span>

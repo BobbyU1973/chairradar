@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { liveCityPages } from "@/data/coverage";
+import { getLocalSeoPageByHref } from "@/data/localSeoPages";
 import { locationPages } from "@/data/locationPages";
 
 const footerPageIds = [
@@ -18,6 +19,23 @@ const footerPages = footerPageIds
   .filter((page): page is (typeof locationPages)[number] => Boolean(page));
 
 const liveFooterPages = liveCityPages.slice(0, 4);
+
+const featuredLocalFooterHrefs = [
+  "/haircuts/raleigh-nc",
+  "/haircuts/charlotte-nc",
+  "/haircuts/mooresville-nc",
+  "/haircuts/cornelius-nc",
+  "/haircuts/huntersville-nc",
+  "/haircuts/denver-nc",
+  "/haircuts/sherrills-ford-nc",
+  "/haircuts/lake-norman-nc",
+  "/barbers-open-now/raleigh-nc",
+  "/barbers-open-now/charlotte-nc"
+];
+
+const featuredLocalFooterPages = featuredLocalFooterHrefs
+  .map((href) => getLocalSeoPageByHref(href))
+  .filter((page): page is NonNullable<ReturnType<typeof getLocalSeoPageByHref>> => Boolean(page));
 
 const guideLinks = [
   { href: "/guides/find-same-day-haircut", label: "Find a same-day haircut" },
@@ -76,19 +94,16 @@ export function SiteFooter() {
               Popular searches
             </p>
             <div className="mt-4 grid gap-3">
-              <Link
-                href="/haircuts/mooresville-nc"
-                className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
-              >
-                Haircuts in Mooresville
-              </Link>
-              <Link
-                href="/barbers-open-now/mooresville-nc"
-                className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
-              >
-                Barbers open now
-              </Link>
-              {footerPages.slice(0, 4).map((page) => (
+              {featuredLocalFooterPages.slice(0, 6).map((page) => (
+                <Link
+                  key={page.href}
+                  href={page.href}
+                  className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
+                >
+                  {page.metaTitle}
+                </Link>
+              ))}
+              {footerPages.slice(0, 2).map((page) => (
                 <Link
                   key={page.id}
                   href={page.href}
