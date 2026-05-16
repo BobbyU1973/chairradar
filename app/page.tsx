@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrowseByLocationSection } from "@/components/BrowseByLocationSection";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShopCard } from "@/components/ShopCard";
-import { getLocalSeoPageByHref } from "@/data/localSeoPages";
-import { locationPages } from "@/data/locationPages";
+import {
+  getLocalSeoPageByHref,
+  localSeoBrowseGroups
+} from "@/data/localSeoPages";
 import { shops } from "@/data/shops";
 import { SITE_URL } from "@/lib/site";
 import { getHomeStructuredData } from "@/lib/structuredData";
@@ -15,13 +18,13 @@ export const metadata: Metadata = {
   description:
     "ChairRadar helps you find barbershops, salons, and haircut providers near you with walk-in options, same-day availability, booking links, hours, phone numbers, and location details.",
   alternates: {
-    canonical: SITE_URL
+    canonical: `${SITE_URL}/`
   },
   openGraph: {
     title: "ChairRadar | Haircut Near Me, Barbers, Salons, and Walk-Ins",
     description:
       "Find nearby barbershops, salons, and haircut providers with walk-in options, same-day availability, booking links, phone numbers, hours, and directions.",
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     siteName: "ChairRadar",
     type: "website",
     images: [
@@ -42,29 +45,6 @@ export const metadata: Metadata = {
   }
 };
 
-const popularSearchPageIds = [
-  "raleigh-haircuts",
-  "charlotte-haircuts",
-  "mooresville-haircuts",
-  "raleigh-walk-in-haircuts",
-  "charlotte-walk-in-haircuts",
-  "mooresville-walk-in-haircuts",
-  "raleigh-27615",
-  "charlotte-28277",
-  "mooresville-28117",
-  "raleigh-mens-haircuts",
-  "charlotte-mens-haircuts",
-  "cornelius-haircuts",
-  "huntersville-haircuts",
-  "denver-haircuts",
-  "lake-norman-open-now-haircuts",
-  "lake-norman-kids-haircuts"
-];
-
-const popularSearchPages = popularSearchPageIds
-  .map((pageId) => locationPages.find((page) => page.id === pageId))
-  .filter((page): page is (typeof locationPages)[number] => Boolean(page));
-
 const featuredLocalHrefSet = [
   "/haircuts/raleigh-nc",
   "/barbers/raleigh-nc",
@@ -83,6 +63,8 @@ const featuredLocalHrefSet = [
 const featuredLocalPages = featuredLocalHrefSet
   .map((href) => getLocalSeoPageByHref(href))
   .filter((page): page is NonNullable<ReturnType<typeof getLocalSeoPageByHref>> => Boolean(page));
+
+const browsePreviewGroups = localSeoBrowseGroups.slice(0, 4);
 
 export default function HomePage() {
   const featuredShops = shops.slice(0, 3);
@@ -131,20 +113,6 @@ export default function HomePage() {
                 </h3>
               </Link>
             ))}
-            {popularSearchPages.map((page) => (
-              <Link
-                key={page.id}
-                href={page.href}
-                className="rounded-[24px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-4 transition hover:-translate-y-1"
-              >
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--muted)]">
-                  {page.areaName}
-                </p>
-                <h3 className="mt-2 text-lg font-semibold tracking-tight">
-                  {page.metaTitle}
-                </h3>
-              </Link>
-            ))}
           </div>
         </div>
       </section>
@@ -179,55 +147,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-4 pb-14 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl rounded-[36px] border border-[color:var(--line)] bg-white/78 p-6 shadow-[var(--shadow)] lg:p-10">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
-              Coverage that can scale
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Built for statewide and national expansion, without fake local pages
-            </h2>
-            <p className="mt-3 text-[color:var(--muted)]">
-              ChairRadar can expand market by market, but local pages should stay useful. Current live coverage includes Raleigh, Charlotte, Mooresville, Cornelius, Huntersville, Denver, and nearby ZIPs.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                href="/locations"
-                className="inline-flex rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white"
-              >
-                View coverage
-              </Link>
-              <Link
-                href="/nc"
-                className="inline-flex rounded-full border border-[color:var(--line)] bg-white px-5 py-3 text-sm font-semibold"
-              >
-                North Carolina hub
-              </Link>
-            </div>
-          </div>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {popularSearchPages.slice(0, 4).map((page) => (
-              <Link
-                key={page.id}
-                href={page.href}
-                className="rounded-[28px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-5 transition hover:-translate-y-1"
-              >
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
-                  {page.areaName}
-                </p>
-                <h3 className="mt-3 text-xl font-semibold tracking-tight">
-                  {page.heading}
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
-                  {page.metaDescription}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BrowseByLocationSection
+        eyebrow="Browse by location"
+        title="Main city and category pages with real local listings"
+        description="Start with the strongest ChairRadar market pages: city-specific haircut, barber, walk-in, kids, and open-now searches tied to real shop data."
+        groups={browsePreviewGroups}
+        ctaHref="/locations"
+        ctaLabel="View all coverage"
+      />
 
       <section id="how-it-works" className="px-4 pb-14 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-6 rounded-[36px] border border-[color:var(--line)] bg-white/78 p-6 shadow-[var(--shadow)] lg:grid-cols-3 lg:p-10">

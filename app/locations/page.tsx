@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrowseByLocationSection } from "@/components/BrowseByLocationSection";
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
   liveCities,
-  liveCityPages,
   liveCoverageAreas,
   liveShopCount,
   liveZipCodes,
@@ -13,7 +13,12 @@ import {
   priorityNorthCarolinaMarkets,
   prioritySoutheastMarkets
 } from "@/data/coverage";
+import { localSeoBrowseGroups } from "@/data/localSeoPages";
 import { SITE_URL } from "@/lib/site";
+import {
+  getBreadcrumbStructuredData,
+  getCollectionPageStructuredData
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "ChairRadar Coverage | Find Haircut Shops Near You",
@@ -39,8 +44,32 @@ export const metadata: Metadata = {
 };
 
 export default function LocationsPage() {
+  const pageUrl = `${SITE_URL}/locations`;
+  const structuredData = [
+    getCollectionPageStructuredData({
+      name: "ChairRadar Coverage",
+      description:
+        "Browse ChairRadar city and category pages for live haircut coverage across North Carolina.",
+      url: pageUrl,
+      items: localSeoBrowseGroups.flatMap((group) =>
+        group.pages.map((page) => ({
+          name: page.metaTitle,
+          url: `${SITE_URL}${page.href}`
+        }))
+      )
+    }),
+    getBreadcrumbStructuredData([
+      { name: "ChairRadar", url: SITE_URL },
+      { name: "Browse by location", url: pageUrl }
+    ])
+  ];
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <Header />
 
       <section className="px-4 pb-10 pt-12 sm:px-6 lg:px-8">
@@ -119,33 +148,14 @@ export default function LocationsPage() {
         </div>
       </section>
 
-      <section className="px-4 pb-14 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
-              Popular live city searches
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-              Local pages with real public shop data
-            </h2>
-          </div>
-
-          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {liveCityPages.map((page) => (
-              <Link
-                key={page.id}
-                href={page.href}
-                className="rounded-[26px] border border-[color:var(--line)] bg-white/82 p-5 shadow-[0_14px_38px_rgba(44,30,18,0.05)] transition hover:-translate-y-1"
-              >
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--muted)]">
-                  {page.areaName}
-                </p>
-                <h3 className="mt-3 text-lg font-semibold tracking-tight">{page.metaTitle}</h3>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BrowseByLocationSection
+        eyebrow="Browse by location"
+        title="All main city and category pages in current coverage"
+        description="These are the pages Google and users should understand first: real city-specific haircut, barber, walk-in, kids, and open-now pages tied to live shop listings."
+        groups={localSeoBrowseGroups}
+        ctaHref="/nc"
+        ctaLabel="View NC hub"
+      />
 
       <section className="px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.9fr_1.1fr]">

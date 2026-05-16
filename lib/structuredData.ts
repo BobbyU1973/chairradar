@@ -8,6 +8,11 @@ type BreadcrumbItem = {
   url: string;
 };
 
+type ItemListItem = {
+  name: string;
+  url: string;
+};
+
 export type FAQItem = {
   question: string;
   answer: string;
@@ -87,6 +92,58 @@ export function getFAQStructuredData(items: FAQItem[]) {
   };
 }
 
+export function getItemListStructuredData(
+  items: ItemListItem[],
+  listUrl?: string
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    url: listUrl,
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: item.url
+    }))
+  };
+}
+
+export function getCollectionPageStructuredData({
+  name,
+  description,
+  url,
+  items
+}: {
+  name: string;
+  description: string;
+  url: string;
+  items: ItemListItem[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${url}#webpage`,
+    name,
+    description,
+    url,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "ChairRadar",
+      url: SITE_URL
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        url: item.url
+      }))
+    }
+  };
+}
+
 function isBarberShop(shop: Shop) {
   return shop.specialties.some((specialty) => {
     const normalized = specialty.toLowerCase();
@@ -149,28 +206,15 @@ export function getLocationPageStructuredData(page: LocationPage, pageShops: Sho
   const pageUrl = `${SITE_URL}${page.href}`;
 
   return [
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "@id": `${pageUrl}#webpage`,
+    getCollectionPageStructuredData({
       name: page.metaTitle,
       description: page.metaDescription,
       url: pageUrl,
-      isPartOf: {
-        "@type": "WebSite",
-        name: "ChairRadar",
-        url: SITE_URL
-      },
-      mainEntity: {
-        "@type": "ItemList",
-        itemListElement: pageShops.slice(0, 30).map((shop, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: shop.name,
-          url: `${SITE_URL}${getShopProfilePath(shop)}`
-        }))
-      }
-    },
+      items: pageShops.slice(0, 30).map((shop) => ({
+        name: shop.name,
+        url: `${SITE_URL}${getShopProfilePath(shop)}`
+      }))
+    }),
     getBreadcrumbStructuredData([
       { name: "ChairRadar", url: SITE_URL },
       { name: page.areaName, url: pageUrl }

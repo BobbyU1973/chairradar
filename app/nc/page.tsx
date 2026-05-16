@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrowseByLocationSection } from "@/components/BrowseByLocationSection";
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
-  liveCityPages,
   liveCoverageAreas,
   liveShopCount,
-  liveZipPages,
   priorityNorthCarolinaMarkets,
   prioritySoutheastMarkets
 } from "@/data/coverage";
+import { localSeoBrowseGroups } from "@/data/localSeoPages";
 import { SITE_URL } from "@/lib/site";
+import {
+  getBreadcrumbStructuredData,
+  getCollectionPageStructuredData
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Haircut Shops in North Carolina | ChairRadar",
@@ -37,8 +41,32 @@ export const metadata: Metadata = {
 };
 
 export default function NorthCarolinaPage() {
+  const pageUrl = `${SITE_URL}/nc`;
+  const structuredData = [
+    getCollectionPageStructuredData({
+      name: "Haircut Shops in North Carolina",
+      description:
+        "Browse ChairRadar's main North Carolina haircut pages with real public shop listings, booking links, walk-in info, and directions.",
+      url: pageUrl,
+      items: localSeoBrowseGroups.flatMap((group) =>
+        group.pages.map((page) => ({
+          name: page.metaTitle,
+          url: `${SITE_URL}${page.href}`
+        }))
+      )
+    }),
+    getBreadcrumbStructuredData([
+      { name: "ChairRadar", url: SITE_URL },
+      { name: "North Carolina", url: pageUrl }
+    ])
+  ];
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <Header />
 
       <section className="px-4 pb-10 pt-12 sm:px-6 lg:px-8">
@@ -85,64 +113,6 @@ export default function NorthCarolinaPage() {
           </aside>
 
           <div className="rounded-[36px] border border-[color:var(--line)] bg-white/82 p-6 shadow-[var(--shadow)] lg:p-8">
-            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
-                  Live city pages
-                </p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-                  Start with current NC coverage
-                </h2>
-              </div>
-              <Link
-                href="/locations"
-                className="inline-flex w-fit rounded-full border border-[color:var(--line)] bg-white px-5 py-3 text-sm font-semibold"
-              >
-                View all coverage
-              </Link>
-            </div>
-
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {liveCityPages.map((page) => (
-                <Link
-                  key={page.id}
-                  href={page.href}
-                  className="rounded-[24px] bg-[color:var(--panel-strong)] p-5 transition hover:-translate-y-1"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--muted)]">
-                    {page.areaName}
-                  </p>
-                  <h3 className="mt-2 text-lg font-semibold tracking-tight">{page.heading}</h3>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 pb-14 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
-          <div className="rounded-[36px] border border-[color:var(--line)] bg-white/82 p-6 shadow-[var(--shadow)] lg:p-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
-              Live ZIP searches
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-              Search by nearby ZIP
-            </h2>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {liveZipPages.map((page) => (
-                <Link
-                  key={page.id}
-                  href={page.href}
-                  className="rounded-[22px] bg-[color:var(--panel-strong)] p-4 text-sm font-semibold transition hover:-translate-y-1"
-                >
-                  {page.heading}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-[36px] border border-[color:var(--line)] bg-white/82 p-6 shadow-[var(--shadow)] lg:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
               Before you go
             </p>
@@ -163,6 +133,15 @@ export default function NorthCarolinaPage() {
           </div>
         </div>
       </section>
+
+      <BrowseByLocationSection
+        eyebrow="Browse North Carolina"
+        title="Main NC market pages with real shop data"
+        description="These are the current ChairRadar city and category pages that should carry the North Carolina indexing work: haircut, barber, walk-in, kids, and open-now searches tied to live listings."
+        groups={localSeoBrowseGroups}
+        ctaHref="/locations"
+        ctaLabel="View all coverage"
+      />
 
       <section className="px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mx-auto rounded-[36px] border border-[color:var(--line)] bg-[color:var(--foreground)] p-6 text-white shadow-[var(--shadow)] lg:max-w-7xl lg:p-8">

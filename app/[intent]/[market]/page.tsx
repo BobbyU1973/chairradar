@@ -8,12 +8,14 @@ import { SiteFooter } from "@/components/SiteFooter";
 import {
   getLocalSeoPage,
   getLocalSeoPageByHref,
+  getLocalSeoPageFeaturedShops,
   getLocalSeoPageShops,
   localSeoPages
 } from "@/data/localSeoPages";
 import { SITE_URL } from "@/lib/site";
 import { getShopProfilePath } from "@/lib/shopRoutes";
 import {
+  getCollectionPageStructuredData,
   getBreadcrumbStructuredData,
   getFAQStructuredData
 } from "@/lib/structuredData";
@@ -76,32 +78,21 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
   }
 
   const pageShops = getLocalSeoPageShops(page);
+  const featuredShopPages = getLocalSeoPageFeaturedShops(page, 4);
   const pageUrl = `${SITE_URL}${page.href}`;
   const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "@id": `${pageUrl}#webpage`,
+    getCollectionPageStructuredData({
       name: page.metaTitle,
       description: page.metaDescription,
       url: pageUrl,
-      isPartOf: {
-        "@type": "WebSite",
-        name: "ChairRadar",
-        url: SITE_URL
-      },
-      mainEntity: {
-        "@type": "ItemList",
-        itemListElement: pageShops.slice(0, 30).map((shop, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: shop.name,
-          url: `${SITE_URL}${getShopProfilePath(shop)}`
-        }))
-      }
-    },
+      items: pageShops.slice(0, 30).map((shop) => ({
+        name: shop.name,
+        url: `${SITE_URL}${getShopProfilePath(shop)}`
+      }))
+    }),
     getBreadcrumbStructuredData([
       { name: "ChairRadar", url: SITE_URL },
+      { name: "Browse by location", url: `${SITE_URL}/locations` },
       { name: page.metaTitle, url: pageUrl }
     ]),
     getFAQStructuredData(page.faq)
@@ -128,7 +119,10 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
               {page.intro}
             </p>
             <p className="mt-4 max-w-3xl text-base leading-7 text-[color:var(--muted)]">
-              This is a lightweight discovery page, not a live booking platform. Use the listing to call, open a shop website, check online haircut booking, or get directions.
+              {page.coverageSummary}
+            </p>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-[color:var(--muted)]">
+              {page.pageTypeSummary} ChairRadar stays lightweight here too: use the listing to call, open a shop website, check online haircut booking, or get directions.
             </p>
             <div className="mt-8 max-w-3xl">
               <SearchBar
@@ -147,6 +141,9 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
             </p>
             <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
               {page.quickAnswer}
+            </p>
+            <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
+              {page.stats.bookableCount} include booking links, {page.stats.walkInCount} show walk-in or check-in access, and {page.stats.openNowCount} currently show open-now status in the broader coverage area.
             </p>
             <Link
               href={`/search?query=Haircut&location=${encodeURIComponent(page.searchLocation)}`}
@@ -180,6 +177,77 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
           <div className="mt-8 grid gap-6">
             {pageShops.map((shop) => (
               <ShopCard key={shop.id} shop={shop} sourcePage={`local_${page.intent}`} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-14 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-[30px] border border-[color:var(--line)] bg-white/78 p-6 shadow-[var(--shadow)] sm:p-8">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[color:var(--muted)]">
+              How to use this page
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+              Built for real haircut decisions in {page.marketShortName}
+            </h2>
+            <p className="mt-3 text-[color:var(--muted)]">
+              Whether you need a walk-in haircut, same-day cleanup, booking link, or a shop that looks open right now, this page keeps those use cases in one local view.
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-4">
+            {page.useCases.map((item) => (
+              <div key={item.title} className="rounded-[24px] bg-[color:var(--panel-strong)] p-5">
+                <h3 className="text-xl font-semibold tracking-tight">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-14 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-[30px] border border-[color:var(--line)] bg-white/78 p-6 shadow-[var(--shadow)] sm:p-8">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div className="max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[color:var(--muted)]">
+                Shop pages
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+                Featured shop profiles in {page.marketShortName}
+              </h2>
+              <p className="mt-3 text-[color:var(--muted)]">
+                These shop pages carry the direct call, website, booking, and directions actions for the local listings shown above.
+              </p>
+            </div>
+            <Link
+              href="/locations"
+              className="inline-flex w-fit rounded-full border border-[color:var(--line)] bg-white px-5 py-3 text-sm font-semibold"
+            >
+              Browse by location
+            </Link>
+          </div>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {featuredShopPages.map((shop) => (
+              <Link
+                key={shop.id}
+                href={getShopProfilePath(shop)}
+                className="rounded-[24px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-5 transition hover:-translate-y-1"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--muted)]">
+                  {shop.city}, {shop.state} {shop.zip}
+                </p>
+                <h3 className="mt-2 text-lg font-semibold tracking-tight">
+                  {shop.name}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
+                  {shop.availabilitySummary}
+                </p>
+              </Link>
             ))}
           </div>
         </div>
@@ -232,6 +300,12 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
                 className="rounded-[22px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-4 text-sm font-semibold transition hover:-translate-y-1"
               >
                 Claim a ChairRadar listing
+              </Link>
+              <Link
+                href="/locations"
+                className="rounded-[22px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-4 text-sm font-semibold transition hover:-translate-y-1"
+              >
+                Browse by location
               </Link>
             </div>
           </aside>

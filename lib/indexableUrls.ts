@@ -1,4 +1,3 @@
-import { locationPages } from "@/data/locationPages";
 import { guidePages } from "@/data/guidePages";
 import { localSeoPages } from "@/data/localSeoPages";
 import { shops } from "@/data/shops";
@@ -12,9 +11,9 @@ export type IndexableUrlEntry = {
 };
 
 export function getIndexableUrlEntries(): IndexableUrlEntry[] {
-  return [
+  const entries: IndexableUrlEntry[] = [
     {
-      url: `${SITE_URL}/`,
+      url: SITE_URL,
       changeFrequency: "daily",
       priority: 1
     },
@@ -43,17 +42,14 @@ export function getIndexableUrlEntries(): IndexableUrlEntry[] {
       changeFrequency: "weekly" as const,
       priority: 0.86
     })),
-    ...locationPages.map((page) => ({
-      url: `${SITE_URL}${page.href}`,
-      changeFrequency: "weekly" as const,
-      priority: 0.85
-    })),
     ...shops.map((shop) => ({
       url: `${SITE_URL}${getShopProfilePath(shop)}`,
       changeFrequency: "weekly" as const,
       priority: 0.7
     }))
   ];
+
+  return Array.from(new Map(entries.map((entry) => [entry.url, entry])).values());
 }
 
 export function getIndexableUrls() {

@@ -1,24 +1,8 @@
 import Link from "next/link";
-import { liveCityPages } from "@/data/coverage";
-import { getLocalSeoPageByHref } from "@/data/localSeoPages";
-import { locationPages } from "@/data/locationPages";
-
-const footerPageIds = [
-  "mooresville-haircuts",
-  "mooresville-walk-in-haircuts",
-  "cornelius-haircuts",
-  "huntersville-haircuts",
-  "denver-haircuts",
-  "lake-norman-haircuts",
-  "lake-norman-open-now-haircuts",
-  "lake-norman-kids-haircuts"
-];
-
-const footerPages = footerPageIds
-  .map((pageId) => locationPages.find((page) => page.id === pageId))
-  .filter((page): page is (typeof locationPages)[number] => Boolean(page));
-
-const liveFooterPages = liveCityPages.slice(0, 4);
+import {
+  getLocalSeoPageByHref,
+  localSeoBrowseGroups
+} from "@/data/localSeoPages";
 
 const featuredLocalFooterHrefs = [
   "/haircuts/raleigh-nc",
@@ -45,6 +29,8 @@ const guideLinks = [
 ];
 
 export function SiteFooter() {
+  const liveFooterPages = localSeoBrowseGroups.slice(0, 4);
+
   return (
     <footer className="border-t border-[color:var(--line)] bg-[rgba(255,252,248,0.86)]">
       <div className="mx-auto grid w-full max-w-7xl gap-8 px-6 py-10 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
@@ -77,13 +63,13 @@ export function SiteFooter() {
               >
                 North Carolina haircuts
               </Link>
-              {liveFooterPages.map((page) => (
+              {liveFooterPages.map((group) => (
                 <Link
-                  key={page.id}
-                  href={page.href}
+                  key={group.market.market}
+                  href={`/haircuts/${group.market.market}`}
                   className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
                 >
-                  {page.areaName}
+                  {group.market.areaName}
                 </Link>
               ))}
             </div>
@@ -103,15 +89,18 @@ export function SiteFooter() {
                   {page.metaTitle}
                 </Link>
               ))}
-              {footerPages.slice(0, 2).map((page) => (
-                <Link
-                  key={page.id}
-                  href={page.href}
-                  className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
-                >
-                  {page.metaTitle}
-                </Link>
-              ))}
+              <Link
+                href="/walk-in-haircuts/raleigh-nc"
+                className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
+              >
+                Walk-In Haircuts in Raleigh, NC
+              </Link>
+              <Link
+                href="/kids-haircuts/charlotte-nc"
+                className="text-sm font-medium text-[color:var(--muted)] underline decoration-[color:var(--line)] underline-offset-4 transition hover:text-[color:var(--foreground)]"
+              >
+                Kids Haircuts in Charlotte, NC
+              </Link>
             </div>
           </div>
 

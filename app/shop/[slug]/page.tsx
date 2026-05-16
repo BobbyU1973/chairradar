@@ -5,7 +5,10 @@ import { Header } from "@/components/Header";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { TrackEvent } from "@/components/TrackEvent";
-import { locationPages } from "@/data/locationPages";
+import {
+  getLocalSeoPagesForShop,
+  getPrimaryLocalSeoPageForShop
+} from "@/data/localSeoPages";
 import { shops, type Shop } from "@/data/shops";
 import { getOutboundHref } from "@/lib/outboundActions";
 import { SITE_URL } from "@/lib/site";
@@ -62,12 +65,7 @@ function getBeforeYouGoItems(shop: Shop) {
 }
 
 function getRelatedSearchPages(shop: Shop) {
-  const directMatches = locationPages.filter((page) => {
-    return page.cityNames.includes(shop.city) || page.zipCodes.includes(shop.zip);
-  });
-  const broaderMatches = locationPages.filter((page) => page.id.startsWith("lake-norman"));
-
-  return Array.from(new Map([...directMatches, ...broaderMatches].map((page) => [page.id, page])).values()).slice(0, 4);
+  return getLocalSeoPagesForShop(shop);
 }
 
 export async function generateMetadata({
@@ -146,11 +144,15 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
   const bestForItems = getBestForItems(shop);
   const beforeYouGoItems = getBeforeYouGoItems(shop);
   const relatedSearchPages = getRelatedSearchPages(shop);
+  const primaryLocalPage = getPrimaryLocalSeoPageForShop(shop);
   const structuredData = [
     getShopStructuredData(shop),
     getBreadcrumbStructuredData([
       { name: "ChairRadar", url: SITE_URL },
-      { name: "Haircut shops", url: `${SITE_URL}/nc/lake-norman/haircuts` },
+      {
+        name: primaryLocalPage?.metaTitle ?? "Haircut shops",
+        url: primaryLocalPage ? `${SITE_URL}${primaryLocalPage.href}` : `${SITE_URL}/locations`
+      },
       { name: shop.name, url: `${SITE_URL}${getShopProfilePath(shop)}` }
     ])
   ];
@@ -413,7 +415,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
             <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {relatedSearchPages.map((page) => (
                 <Link
-                  key={page.id}
+                  key={page.href}
                   href={page.href}
                   className="rounded-[24px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-5 transition hover:-translate-y-1"
                 >
