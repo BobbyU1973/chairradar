@@ -289,6 +289,19 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
                   </Link>
                 );
               })}
+              {page.nearbyHrefs.map((href) => {
+                const nearby = getLocalSeoPageByHref(href);
+
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="rounded-[22px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-4 text-sm font-semibold transition hover:-translate-y-1"
+                  >
+                    {nearby?.metaTitle ?? href}
+                  </Link>
+                );
+              })}
               <Link
                 href="/guides/find-same-day-haircut"
                 className="rounded-[22px] border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-4 text-sm font-semibold transition hover:-translate-y-1"

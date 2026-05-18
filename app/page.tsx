@@ -18,13 +18,13 @@ export const metadata: Metadata = {
   description:
     "ChairRadar helps you find barbershops, salons, and haircut providers near you with walk-in options, same-day availability, booking links, hours, phone numbers, and location details.",
   alternates: {
-    canonical: `${SITE_URL}/`
+    canonical: SITE_URL
   },
   openGraph: {
     title: "ChairRadar | Haircut Near Me, Barbers, Salons, and Walk-Ins",
     description:
       "Find nearby barbershops, salons, and haircut providers with walk-in options, same-day availability, booking links, phone numbers, hours, and directions.",
-    url: `${SITE_URL}/`,
+    url: SITE_URL,
     siteName: "ChairRadar",
     type: "website",
     images: [

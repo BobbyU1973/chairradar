@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrowseByLocationSection } from "@/components/BrowseByLocationSection";
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShopCard } from "@/components/ShopCard";
 import { TrackEvent } from "@/components/TrackEvent";
+import { localSeoBrowseGroups } from "@/data/localSeoPages";
 import { regionalSearchTerms, shops, type Shop } from "@/data/shops";
+import { getShopProfilePath } from "@/lib/shopRoutes";
 import { SITE_URL } from "@/lib/site";
+import {
+  getBreadcrumbStructuredData,
+  getCollectionPageStructuredData
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
-  title: "Search Haircut Shops",
+  title: "Search Haircut Shops Near You",
   description:
-    "Search ChairRadar for nearby haircut shops, walk-in options, and public booking links in the current North Carolina launch coverage area.",
+    "Search ChairRadar for nearby haircut shops, walk-in options, booking links, phone numbers, and same-day haircut leads in the current coverage area.",
   alternates: {
     canonical: `${SITE_URL}/search`
-  },
-  robots: {
-    index: false,
-    follow: true
   }
 };
 
@@ -151,9 +154,30 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
     return `/search?${nextParams.toString()}`;
   };
+  const pageUrl = `${SITE_URL}/search`;
+  const structuredData = [
+    getCollectionPageStructuredData({
+      name: "Search Haircut Shops Near You",
+      description:
+        "Search ChairRadar for nearby haircut shops, walk-in options, booking links, phone numbers, and directions.",
+      url: pageUrl,
+      items: resultShops.slice(0, 24).map((shop) => ({
+        name: shop.name,
+        url: `${SITE_URL}${getShopProfilePath(shop)}`
+      }))
+    }),
+    getBreadcrumbStructuredData([
+      { name: "ChairRadar", url: SITE_URL },
+      { name: "Search haircut shops", url: pageUrl }
+    ])
+  ];
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <TrackEvent
         eventName="search_results_viewed"
         params={{
@@ -196,6 +220,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             <p className="mt-4 text-lg text-[color:var(--muted)]">
               Showing real public shop options for <span className="font-semibold text-[color:var(--foreground)]">{query}</span> in{" "}
               <span className="font-semibold text-[color:var(--foreground)]">{location}</span>.
+            </p>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-[color:var(--muted)]">
+              Use this page to compare walk-in haircut options, same-day booking links, open-now leads, phone numbers, and directions without leaving ChairRadar for every first click.
             </p>
           </div>
 
@@ -256,6 +283,15 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             )}
         </div>
       </section>
+
+      <BrowseByLocationSection
+        eyebrow="Popular areas"
+        title="Browse the strongest city and category pages"
+        description="If your search is broad, start with the main Raleigh, Charlotte, Lake Norman, and nearby local pages. They carry the strongest unique local content and direct links to shop profiles."
+        groups={localSeoBrowseGroups.slice(0, 4)}
+        ctaHref="/locations"
+        ctaLabel="Browse all locations"
+      />
 
       <SiteFooter />
     </main>

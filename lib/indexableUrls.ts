@@ -28,6 +28,11 @@ export function getIndexableUrlEntries(): IndexableUrlEntry[] {
       priority: 0.78
     },
     {
+      url: `${SITE_URL}/search`,
+      changeFrequency: "daily",
+      priority: 0.76
+    },
+    {
       url: `${SITE_URL}/for-shops/get-more-haircut-customers`,
       changeFrequency: "weekly",
       priority: 0.72

@@ -59,6 +59,7 @@ export type LocalSeoPage = {
   ctaLabel: string;
   faq: FAQItem[];
   relatedHrefs: string[];
+  nearbyHrefs: string[];
   browseHref: string;
   browseLabel: string;
   quickAnswer: string;
@@ -177,6 +178,17 @@ const localSeoMarketSeeds: LocalSeoMarketSeed[] = [
   }
 ];
 
+const nearbyMarketMap: Record<string, string[]> = {
+  "raleigh-nc": ["charlotte-nc", "lake-norman-nc"],
+  "charlotte-nc": ["lake-norman-nc", "huntersville-nc", "cornelius-nc"],
+  "lake-norman-nc": ["mooresville-nc", "cornelius-nc", "huntersville-nc", "denver-nc", "sherrills-ford-nc", "charlotte-nc"],
+  "mooresville-nc": ["lake-norman-nc", "cornelius-nc", "huntersville-nc", "denver-nc", "sherrills-ford-nc"],
+  "cornelius-nc": ["lake-norman-nc", "huntersville-nc", "mooresville-nc", "charlotte-nc"],
+  "huntersville-nc": ["lake-norman-nc", "cornelius-nc", "charlotte-nc", "mooresville-nc"],
+  "denver-nc": ["lake-norman-nc", "mooresville-nc", "sherrills-ford-nc", "huntersville-nc"],
+  "sherrills-ford-nc": ["lake-norman-nc", "denver-nc", "mooresville-nc"]
+};
+
 function getLocationPageById(pageId?: string) {
   if (!pageId) {
     return undefined;
@@ -255,6 +267,10 @@ function buildRelatedHrefs(intent: LocalSeoIntent, market: string) {
   return localSeoIntents
     .filter((item) => item !== intent)
     .map((item) => buildIntentHref(item, market));
+}
+
+function buildNearbyHrefs(intent: LocalSeoIntent, market: string) {
+  return (nearbyMarketMap[market] ?? []).map((nearbyMarket) => buildIntentHref(intent, nearbyMarket));
 }
 
 function isBarberLike(shop: Shop) {
@@ -642,6 +658,7 @@ function buildLocalSeoPage(intent: LocalSeoIntent, market: LocalSeoMarket): Loca
     ctaLabel: copy.ctaLabel,
     faq: buildFaq(intent, market, stats),
     relatedHrefs: buildRelatedHrefs(intent, market.market),
+    nearbyHrefs: buildNearbyHrefs(intent, market.market),
     browseHref,
     browseLabel,
     quickAnswer: copy.quickAnswer,
