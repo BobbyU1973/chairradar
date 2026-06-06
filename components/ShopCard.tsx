@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import type { Shop } from "@/data/shops";
 import { trackEvent } from "@/lib/analytics";
-import { getOutboundHref } from "@/lib/outboundActions";
+import { getOutboundDestination } from "@/lib/outboundActions";
 import { getShopProfilePath } from "@/lib/shopRoutes";
 
 type ShopCardProps = {
@@ -15,11 +16,11 @@ export function ShopCard({ shop, sourcePage = "results" }: ShopCardProps) {
   const primaryExternalUrl = shop.bookingUrl ?? shop.websiteUrl;
   const showWebsiteButton = shop.websiteUrl !== primaryExternalUrl;
   const primaryAction = shop.bookingUrl ? "book_on_website" : "visit_website";
-  const primaryHref = getOutboundHref(shop.id, primaryAction, `${sourcePage}_primary_link`);
-  const callHref = getOutboundHref(shop.id, "call_shop", `${sourcePage}_call_button`);
-  const inlineCallHref = getOutboundHref(shop.id, "call_shop", `${sourcePage}_inline_phone`);
-  const websiteHref = getOutboundHref(shop.id, "visit_website", `${sourcePage}_secondary_website`);
-  const directionsHref = getOutboundHref(shop.id, "get_directions", `${sourcePage}_directions`);
+  const primaryHref = getOutboundDestination(shop, primaryAction);
+  const callHref = getOutboundDestination(shop, "call_shop");
+  const inlineCallHref = getOutboundDestination(shop, "call_shop");
+  const websiteHref = getOutboundDestination(shop, "visit_website");
+  const directionsHref = getOutboundDestination(shop, "get_directions");
   const profileHref = getShopProfilePath(shop);
   const listingType = shop.sponsored ? "sponsored" : "organic";
   const isChain =
@@ -68,19 +69,22 @@ export function ShopCard({ shop, sourcePage = "results" }: ShopCardProps) {
             <p className="mt-2 text-sm text-[color:var(--muted)]">
               {shop.city}, {shop.state} {shop.zip} | {shop.neighborhood}
             </p>
-            <a
+            <TrackedExternalLink
               href={inlineCallHref}
-              rel="nofollow noopener noreferrer"
-              onClick={() =>
-                trackEvent("call_click", {
-                  ...baseEventParams,
-                  source_surface: `${sourcePage}_inline_phone`
-                })
-              }
+              eventName="call_click"
+              eventParams={{
+                ...baseEventParams,
+                source_surface: `${sourcePage}_inline_phone`
+              }}
+              outboundClick={{
+                shopId: shop.id,
+                action: "call_shop",
+                sourcePage: `${sourcePage}_inline_phone`
+              }}
               className="mt-2 inline-flex text-sm font-medium text-[color:var(--foreground)] underline decoration-[color:var(--line)] underline-offset-4"
             >
               {shop.phone}
-            </a>
+            </TrackedExternalLink>
           </div>
         </div>
 
@@ -108,62 +112,74 @@ export function ShopCard({ shop, sourcePage = "results" }: ShopCardProps) {
 
         <div className="mt-6 border-t border-[color:var(--line)] pt-5">
           <div className="grid gap-3 sm:flex sm:flex-wrap sm:justify-end">
-            <a
+            <TrackedExternalLink
               href={callHref}
-              rel="nofollow noopener noreferrer"
-              onClick={() =>
-                trackEvent("call_click", {
-                  ...baseEventParams,
-                  source_surface: `${sourcePage}_call_button`
-                })
-              }
+              eventName="call_click"
+              eventParams={{
+                ...baseEventParams,
+                source_surface: `${sourcePage}_call_button`
+              }}
+              outboundClick={{
+                shopId: shop.id,
+                action: "call_shop",
+                sourcePage: `${sourcePage}_call_button`
+              }}
               className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-4 py-3 text-sm font-semibold text-white shadow-[0_14px_34px_rgba(191,90,42,0.18)] transition hover:bg-[color:var(--accent-dark)] sm:w-fit"
             >
               Call shop
-            </a>
-            <a
+            </TrackedExternalLink>
+            <TrackedExternalLink
               href={primaryHref}
               target="_blank"
-              rel="nofollow noopener noreferrer"
-              onClick={() =>
-                trackEvent(shop.bookingUrl ? "booking_click" : "website_click", {
-                  ...baseEventParams,
-                  source_surface: `${sourcePage}_primary_link`
-                })
-              }
+              eventName={shop.bookingUrl ? "booking_click" : "website_click"}
+              eventParams={{
+                ...baseEventParams,
+                source_surface: `${sourcePage}_primary_link`
+              }}
+              outboundClick={{
+                shopId: shop.id,
+                action: primaryAction,
+                sourcePage: `${sourcePage}_primary_link`
+              }}
               className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)] sm:w-fit"
             >
               {shop.bookingUrl ? shop.bookingLabel : "Visit website"}
-            </a>
-            <a
+            </TrackedExternalLink>
+            <TrackedExternalLink
               href={directionsHref}
               target="_blank"
-              rel="nofollow noopener noreferrer"
-              onClick={() =>
-                trackEvent("directions_click", {
-                  ...baseEventParams,
-                  source_surface: `${sourcePage}_directions`
-                })
-              }
+              eventName="directions_click"
+              eventParams={{
+                ...baseEventParams,
+                source_surface: `${sourcePage}_directions`
+              }}
+              outboundClick={{
+                shopId: shop.id,
+                action: "get_directions",
+                sourcePage: `${sourcePage}_directions`
+              }}
               className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)] sm:w-fit"
             >
               Directions
-            </a>
+            </TrackedExternalLink>
             {showWebsiteButton ? (
-              <a
+              <TrackedExternalLink
                 href={websiteHref}
                 target="_blank"
-                rel="nofollow noopener noreferrer"
-                onClick={() =>
-                  trackEvent("website_click", {
-                    ...baseEventParams,
-                    source_surface: `${sourcePage}_secondary_website`
-                  })
-                }
+                eventName="website_click"
+                eventParams={{
+                  ...baseEventParams,
+                  source_surface: `${sourcePage}_secondary_website`
+                }}
+                outboundClick={{
+                  shopId: shop.id,
+                  action: "visit_website",
+                  sourcePage: `${sourcePage}_secondary_website`
+                }}
                 className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line)] bg-white px-4 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)] sm:w-fit"
               >
                 Website
-              </a>
+              </TrackedExternalLink>
             ) : null}
             <Link
               href={profileHref}

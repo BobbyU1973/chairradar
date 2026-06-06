@@ -48,7 +48,12 @@ The outbound tracking code supports either Upstash env var naming:
 
 ## Outbound click tracking
 
-Outbound action buttons route through `/api/outbound` before sending users to the shop phone, booking page, website, or directions link. The route looks up the destination from the local shop data, stores a real click event in Upstash Redis when configured, and then redirects the user.
+Outbound action buttons now use direct destination links:
+
+- phone buttons use `tel:`
+- booking, website, and directions buttons link straight to the public destination URL
+
+ChairRadar still tracks those clicks in the background with a POST request to `/api/outbound`. The route stores a real click event in Upstash Redis when configured, but it no longer acts as a user-facing redirect surface.
 
 Tracked actions:
 
@@ -57,6 +62,8 @@ Tracked actions:
 - Visit Website
 - Get Directions
 - Claim Listing
+
+Legacy `GET /api/outbound?...` tracking URLs now return `410 Gone` with `X-Robots-Tag: noindex, nofollow`.
 
 The hidden internal report is available at:
 

@@ -38,17 +38,3 @@ export function getOutboundDestination(shop: Shop, action: OutboundAction) {
 
   return getDirectionsUrl(shop);
 }
-
-export function getOutboundHref(
-  shopId: string,
-  action: OutboundAction,
-  sourcePage: string
-) {
-  const params = new URLSearchParams({
-    shopId,
-    action,
-    source: sourcePage
-  });
-
-  return `/api/outbound?${params.toString()}`;
-}

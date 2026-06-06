@@ -2,12 +2,17 @@
 
 import type { ComponentPropsWithoutRef } from "react";
 import { trackEvent } from "@/lib/analytics";
+import {
+  sendOutboundClick,
+  type OutboundClickPayload
+} from "@/lib/outboundClientTracking";
 
 type EventParams = Record<string, string | number | boolean | null | undefined>;
 
 type TrackedExternalLinkProps = ComponentPropsWithoutRef<"a"> & {
   eventName: string;
   eventParams?: EventParams;
+  outboundClick?: OutboundClickPayload;
 };
 
 function mergeRel(rel?: string) {
@@ -15,7 +20,6 @@ function mergeRel(rel?: string) {
 
   values.add("nofollow");
   values.add("noopener");
-  values.add("noreferrer");
 
   return Array.from(values).join(" ");
 }
@@ -23,16 +27,24 @@ function mergeRel(rel?: string) {
 export function TrackedExternalLink({
   eventName,
   eventParams = {},
+  outboundClick,
   onClick,
   rel,
+  target,
   ...props
 }: TrackedExternalLinkProps) {
+  const mergedRel = target === "_blank" || rel ? mergeRel(rel) : rel;
+
   return (
     <a
       {...props}
-      rel={mergeRel(rel)}
+      target={target}
+      rel={mergedRel}
       onClick={(event) => {
         onClick?.(event);
+        if (outboundClick) {
+          sendOutboundClick(outboundClick);
+        }
         trackEvent(eventName, eventParams);
       }}
     />

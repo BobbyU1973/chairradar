@@ -4,13 +4,14 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import { TrackedInternalLink } from "@/components/TrackedInternalLink";
 import { TrackEvent } from "@/components/TrackEvent";
 import {
   getLocalSeoPagesForShop,
   getPrimaryLocalSeoPageForShop
 } from "@/data/localSeoPages";
 import { shops, type Shop } from "@/data/shops";
-import { getOutboundHref } from "@/lib/outboundActions";
+import { getOutboundDestination } from "@/lib/outboundActions";
 import { SITE_URL } from "@/lib/site";
 import {
   getShopBySlug,
@@ -134,12 +135,12 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
     source_surface: "detail"
   };
   const showWebsiteButton = shop.websiteUrl !== shop.bookingUrl;
-  const bookingHref = getOutboundHref(shop.id, "book_on_website", "detail_primary_booking");
-  const callHref = getOutboundHref(shop.id, "call_shop", "detail_call_button");
-  const websiteHref = getOutboundHref(shop.id, "visit_website", "detail_website_button");
-  const directionsHref = getOutboundHref(shop.id, "get_directions", "detail_directions_button");
-  const phoneRowHref = getOutboundHref(shop.id, "call_shop", "detail_phone_row");
-  const claimHref = getOutboundHref(shop.id, "claim_listing", "detail_claim_listing");
+  const bookingHref = getOutboundDestination(shop, "book_on_website");
+  const callHref = getOutboundDestination(shop, "call_shop");
+  const websiteHref = getOutboundDestination(shop, "visit_website");
+  const directionsHref = getOutboundDestination(shop, "get_directions");
+  const phoneRowHref = getOutboundDestination(shop, "call_shop");
+  const claimHref = `/for-shops/get-more-haircut-customers?shop=${encodeURIComponent(shop.id)}`;
   const shopSummary = getShopSummary(shop);
   const bestForItems = getBestForItems(shop);
   const beforeYouGoItems = getBeforeYouGoItems(shop);
@@ -308,9 +309,13 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                 <TrackedExternalLink
                   href={bookingHref}
                   target="_blank"
-                  rel="noreferrer"
                   eventName="booking_click"
                   eventParams={baseEventParams}
+                  outboundClick={{
+                    shopId: shop.id,
+                    action: "book_on_website",
+                    sourcePage: "detail_primary_booking"
+                  }}
                   className="mt-8 flex w-full items-center justify-center rounded-[22px] bg-[color:var(--accent)] px-6 py-4 text-base font-semibold text-white shadow-[0_16px_34px_rgba(191,90,42,0.26)] transition hover:bg-[color:var(--accent-dark)]"
                 >
                   {shop.bookingLabel}
@@ -321,6 +326,11 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                 href={callHref}
                 eventName="call_click"
                 eventParams={baseEventParams}
+                outboundClick={{
+                  shopId: shop.id,
+                  action: "call_shop",
+                  sourcePage: "detail_call_button"
+                }}
                 className="mt-4 flex w-full items-center justify-center rounded-[22px] bg-[color:var(--foreground)] px-6 py-4 text-base font-semibold text-white transition hover:opacity-90"
               >
                 Call {shop.phone}
@@ -330,9 +340,13 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                 <TrackedExternalLink
                   href={websiteHref}
                   target="_blank"
-                  rel="noreferrer"
                   eventName="website_click"
                   eventParams={baseEventParams}
+                  outboundClick={{
+                    shopId: shop.id,
+                    action: "visit_website",
+                    sourcePage: "detail_website_button"
+                  }}
                   className="mt-4 flex w-full items-center justify-center rounded-[22px] border border-[color:var(--line)] bg-white px-6 py-4 text-base font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)]"
                 >
                   Visit website
@@ -342,9 +356,13 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
               <TrackedExternalLink
                 href={directionsHref}
                 target="_blank"
-                rel="noreferrer"
                 eventName="directions_click"
                 eventParams={baseEventParams}
+                outboundClick={{
+                  shopId: shop.id,
+                  action: "get_directions",
+                  sourcePage: "detail_directions_button"
+                }}
                 className="mt-4 flex w-full items-center justify-center rounded-[22px] border border-[color:var(--line)] bg-white px-6 py-4 text-base font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--panel-strong)]"
               >
                 Get directions
@@ -376,6 +394,11 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                       ...baseEventParams,
                       source_surface: "detail_phone_row"
                     }}
+                    outboundClick={{
+                      shopId: shop.id,
+                      action: "call_shop",
+                      sourcePage: "detail_phone_row"
+                    }}
                     className="font-semibold"
                   >
                     {shop.phone}
@@ -393,7 +416,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                 <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
                   Claim your ChairRadar listing so customers can find your haircut services, hours, booking link, phone number, and walk-in information.
                 </p>
-                <TrackedExternalLink
+                <TrackedInternalLink
                   href={claimHref}
                   eventName="claim_listing_click"
                   eventParams={{
@@ -403,7 +426,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                   className="mt-4 inline-flex w-full items-center justify-center rounded-[20px] bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                 >
                   Claim listing
-                </TrackedExternalLink>
+                </TrackedInternalLink>
               </div>
             </aside>
           </div>
