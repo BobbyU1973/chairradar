@@ -35,7 +35,6 @@ export type LocalSeoPageStats = {
   totalShops: number;
   walkInCount: number;
   bookableCount: number;
-  openNowCount: number;
   barberCount: number;
   kidsCount: number;
   cityList: string[];
@@ -333,7 +332,7 @@ function filterShopsForIntent(intent: LocalSeoIntent, marketShops: Shop[]) {
   }
 
   if (intent === "barbers-open-now") {
-    return marketShops.filter((shop) => shop.openNow && isBarberLike(shop));
+    return marketShops.filter((shop) => isBarberLike(shop));
   }
 
   return marketShops;
@@ -347,7 +346,6 @@ function buildPageStats(marketShops: Shop[], pageShops: Shop[]): LocalSeoPageSta
     totalShops: pageShops.length,
     walkInCount: marketShops.filter((shop) => shop.walkInsAvailable).length,
     bookableCount: marketShops.filter((shop) => Boolean(shop.bookingUrl)).length,
-    openNowCount: marketShops.filter((shop) => shop.openNow).length,
     barberCount: marketShops.filter((shop) => isBarberLike(shop)).length,
     kidsCount: marketShops.filter((shop) => supportsKidsCuts(shop)).length,
     cityList,
@@ -370,7 +368,7 @@ function buildCoverageSummary(market: LocalSeoMarket, stats: LocalSeoPageStats) 
     stats.totalShops,
     "shop listing",
     "shop listings"
-  )} across ${coverageMarkets}.${zipText} ${stats.walkInCount} show walk-in or check-in signals, ${stats.bookableCount} include booking links, and ${stats.openNowCount} currently show open-now status.`;
+  )} across ${coverageMarkets}.${zipText} ${stats.walkInCount} show walk-in or check-in signals, and ${stats.bookableCount} include booking links. Call to confirm today's hours and availability.`;
 }
 
 function buildUseCases(market: LocalSeoMarket, stats: LocalSeoPageStats): LocalSeoUseCase[] {
@@ -398,11 +396,7 @@ function buildUseCases(market: LocalSeoMarket, stats: LocalSeoPageStats): LocalS
     },
     {
       title: "Open now",
-      description: `${stats.openNowCount} ${pluralize(
-        stats.openNowCount,
-        "listing currently shows",
-        "listings currently show"
-      )} open-now status, but a quick call is still the safest last check before you drive over.`
+      description: `Check posted hours for ${market.shortName} shops, then call before leaving. ChairRadar does not verify live open status.`
     }
   ];
 }
@@ -457,12 +451,12 @@ function buildFaq(
       {
         question: `What is the fastest way to find a barber open now in ${market.areaName}?`,
         answer:
-          "Use the open-now list as a first pass, then call before you leave. Hours can shift for staffing, holidays, or a full chair schedule."
+          "Compare the barber listings and posted hours, then call before you leave. Hours can shift for staffing, holidays, or a full chair schedule."
       },
       {
-        question: `How many open-now listings are in the current ${market.shortName} coverage area?`,
+        question: `Does ChairRadar verify which ${market.shortName} barbers are open right now?`,
         answer:
-          `ChairRadar currently shows ${stats.openNowCount} listings marked open now in the broader ${market.shortName} coverage area.`
+          "No. ChairRadar shows public hours when available, but does not receive live status from shops. Call or visit the shop website to confirm."
       },
       {
         question: `Can I still use a booking link on an open-now page?`,
@@ -506,7 +500,7 @@ function buildFaq(
     {
       question: `What should I check first for a same-day haircut in ${market.shortName}?`,
       answer:
-        "Start with walk-in or open-now signals, then call the shop or use its booking link to confirm today's availability."
+        "Start with posted hours and walk-in details, then call the shop or use its booking link to confirm today's availability."
     }
   ];
 }
@@ -590,16 +584,16 @@ function buildPageCopy(
       eyebrow: `${market.shortName} open-now barber guide`,
       metaTitle: `Barbers Open Now in ${market.areaName}`,
       metaDescription:
-        `Find barbers and haircut shops open now in ${market.areaName} with phone numbers, booking links, hours, walk-in info, and directions on ChairRadar.`,
+        `Looking for a barber open now in ${market.areaName}? Compare nearby listings, check posted hours, and call to confirm before you go.`,
       heading: `Barbers open now in ${market.areaName}`,
       intro:
-        `For last-minute cuts, this ${market.shortName} page focuses on barbers and haircut listings that currently show open-now status. Use it as the fast path to a call, booking link, or directions, then confirm the hours before you leave.${featuredShopsText}`,
+        `For last-minute cuts, compare barber listings in ${market.shortName}, check their posted hours, and call before you leave. ChairRadar does not verify live open status.${featuredShopsText}`,
       ctaLabel: `Find barbers open now in ${market.shortName}`,
       quickAnswer:
-        `${stats.openNowCount} local listings in the broader ${market.shortName} coverage area currently show open-now status.`,
+        `Compare ${stats.barberCount} barber-friendly listings in the ${market.shortName} area. Check hours and call to confirm which are open now.`,
       shopSectionHeading: `Open-now barber options in ${market.shortName}`,
       shopSectionDescription:
-        "Focus on open-now options first, then confirm the current hours before you leave.",
+        "Compare barber listings and posted hours, then call to confirm which shops are open before you leave.",
       pageTypeSummary:
         `This page is meant for urgent haircut searches in ${market.areaName}, especially when you need an open chair soon and want a barber-leaning results set.`
     };
@@ -824,7 +818,7 @@ export function getLocalSeoPagesForShop(shop: Shop) {
       pages.push(buildIntentHref("kids-haircuts", market.market));
     }
 
-    if (index === 0 && shop.openNow) {
+    if (index === 0 && isBarberLike(shop)) {
       pages.push(buildIntentHref("barbers-open-now", market.market));
     }
 

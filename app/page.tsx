@@ -16,14 +16,14 @@ import { getHomeStructuredData } from "@/lib/structuredData";
 export const metadata: Metadata = {
   title: "Haircut Near Me, Barbers, Salons, and Walk-Ins",
   description:
-    "ChairRadar helps you find barbershops, salons, and haircut providers near you with walk-in options, same-day availability, booking links, hours, phone numbers, and location details.",
+    "Find nearby barbershops and salons with walk-in details, posted hours, phone numbers, booking links, and directions. Call or check the shop's site for today's availability.",
   alternates: {
     canonical: SITE_URL
   },
   openGraph: {
     title: "ChairRadar | Haircut Near Me, Barbers, Salons, and Walk-Ins",
     description:
-      "Find nearby barbershops, salons, and haircut providers with walk-in options, same-day availability, booking links, phone numbers, hours, and directions.",
+      "Find nearby barbershops and salons with walk-in details, posted hours, phone numbers, booking links, and directions.",
     url: SITE_URL,
     siteName: "ChairRadar",
     type: "website",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ChairRadar | Find a Haircut Near You Fast",
     description:
-      "Find nearby haircut shops, barbers, salons, walk-in options, same-day availability, booking links, phone numbers, hours, and directions.",
+      "Find nearby haircut shops, barbers, and salons with walk-in details, booking links, phone numbers, hours, and directions.",
     images: ["/opengraph-image"]
   }
 };
@@ -165,7 +165,7 @@ export default function HomePage() {
             },
             {
               title: "Compare real public info",
-              text: "See address, phone, booking access, walk-in status, and public availability signals quickly."
+              text: "See addresses, phone numbers, booking links, walk-in details, and posted hours quickly."
             },
             {
               title: "Reserve on the shop's terms",

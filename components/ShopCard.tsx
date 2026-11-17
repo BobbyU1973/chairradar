@@ -55,15 +55,8 @@ export function ShopCard({ shop, sourcePage = "results" }: ShopCardProps) {
               >
                 {shop.name}
               </Link>
-              <span
-                className={[
-                  "rounded-full px-3 py-1 text-xs font-semibold",
-                  shop.openNow
-                    ? "bg-emerald-100 text-emerald-800"
-                    : "bg-stone-200 text-stone-700"
-                ].join(" ")}
-              >
-                {shop.openNow ? "Open now" : "Opens later"}
+              <span className="rounded-full bg-stone-200 px-3 py-1 text-xs font-semibold text-stone-700">
+                Check hours
               </span>
             </div>
             <p className="mt-2 text-sm text-[color:var(--muted)]">

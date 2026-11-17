@@ -37,7 +37,7 @@ export function SiteFooter() {
         <div>
           <p className="text-lg font-semibold tracking-tight">ChairRadar</p>
           <p className="mt-2 max-w-xl text-sm leading-6 text-[color:var(--muted)]">
-            Find nearby haircut shops fast with direct call buttons, public booking links, and simple open-now signals.
+            Find nearby haircut shops with direct call buttons, public booking links, posted hours, and directions.
           </p>
           <div className="mt-5 text-sm text-[color:var(--muted)]">
             <p>ChairRadar is built to expand market by market while keeping local pages tied to real public shop listings.</p>

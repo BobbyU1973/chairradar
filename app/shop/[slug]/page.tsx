@@ -23,8 +23,6 @@ import {
   getShopStructuredData
 } from "@/lib/structuredData";
 
-const SHOP_PROFILE_LAST_UPDATED = "Last updated May 2026";
-
 type ShopDetailPageProps = {
   params: Promise<{
     slug: string;
@@ -191,13 +189,8 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-3">
                 <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{shop.name}</h1>
-                <span
-                  className={[
-                    "rounded-full px-3 py-1 text-sm font-semibold",
-                    shop.openNow ? "bg-emerald-100 text-emerald-800" : "bg-stone-200 text-stone-700"
-                  ].join(" ")}
-                >
-                  {shop.openNow ? "Open now" : "Closed right now"}
+                <span className="rounded-full bg-stone-200 px-3 py-1 text-sm font-semibold text-stone-700">
+                  Check hours
                 </span>
               </div>
 
@@ -219,7 +212,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                 {shopSummary}
               </p>
               <p className="mt-4 inline-flex rounded-full border border-[color:var(--line)] bg-white/80 px-4 py-2 text-sm font-semibold text-[color:var(--muted)]">
-                {SHOP_PROFILE_LAST_UPDATED}. Public details can change, so call or use the shop link before you go.
+                Public details may have changed since this listing was added. Call or use the shop link before you go.
               </p>
 
               <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -372,7 +365,7 @@ export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
                 <div className="flex items-center justify-between gap-4 text-sm">
                   <span className="text-[color:var(--muted)]">Status</span>
                   <span className="font-semibold">
-                    {shop.openNow ? "Open now" : "Closed"}
+                    Confirm with shop
                   </span>
                 </div>
                 <div className="flex items-center justify-between gap-4 text-sm">

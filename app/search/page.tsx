@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ShopCard } from "@/components/ShopCard";
 import { TrackEvent } from "@/components/TrackEvent";
 import { localSeoBrowseGroups } from "@/data/localSeoPages";
-import { regionalSearchTerms, shops, type Shop } from "@/data/shops";
+import { shops, type Shop } from "@/data/shops";
 import { getShopProfilePath } from "@/lib/shopRoutes";
 import { SITE_URL } from "@/lib/site";
 import {
@@ -32,9 +32,9 @@ type SearchPageProps = {
   }>;
 };
 
-type FilterKey = "all" | "open" | "walkins" | "bookable" | "chains";
+type FilterKey = "all" | "walkins" | "bookable" | "chains";
 
-const filterKeys: FilterKey[] = ["all", "open", "walkins", "bookable", "chains"];
+const filterKeys: FilterKey[] = ["all", "walkins", "bookable", "chains"];
 
 function isFilterKey(value: string): value is FilterKey {
   return filterKeys.includes(value as FilterKey);
@@ -51,10 +51,6 @@ function isChainShop(shop: Shop) {
 }
 
 function matchesFilter(shop: Shop, filter: FilterKey) {
-  if (filter === "open") {
-    return shop.openNow;
-  }
-
   if (filter === "walkins") {
     return shop.walkInsAvailable;
   }
@@ -79,11 +75,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   const normalizedQuery = query.toLowerCase();
   const normalizedLocation = location.toLowerCase();
+  const locationName = normalizedLocation.split(",")[0].trim();
   const isZipSearch = /^\d{5}$/.test(normalizedLocation);
-  const hasRegionalTerm =
-    normalizedLocation.length === 0 ||
-    normalizedLocation === "near me" ||
-    regionalSearchTerms.some((term) => normalizedLocation.includes(term));
 
   const matchesQuery = (shopName: string, specialties: string[]) =>
     normalizedQuery.length === 0 ||
@@ -97,23 +90,17 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     return (
       normalizedLocation.length === 0 ||
       normalizedLocation === "near me" ||
-      shop.neighborhood.toLowerCase().includes(normalizedLocation) ||
-      shop.address.toLowerCase().includes(normalizedLocation) ||
-      shop.city.toLowerCase().includes(normalizedLocation) ||
-      shop.zip.includes(normalizedLocation)
+      shop.neighborhood.toLowerCase().includes(locationName) ||
+      shop.address.toLowerCase().includes(locationName) ||
+      shop.city.toLowerCase() === locationName ||
+      shop.zip === locationName ||
+      (locationName === "lake norman" && ["Mooresville", "Cornelius", "Huntersville", "Denver", "Sherrills Ford"].includes(shop.city))
     );
   });
 
-  const shouldShowAllRegionalResults =
-    normalizedLocation.length === 0 ||
-    normalizedLocation === "near me" ||
-    (hasRegionalTerm && locationMatchedShops.length === 0);
-
-  const filteredShops = shouldShowAllRegionalResults
+  const filteredShops = normalizedLocation === "near me" || normalizedLocation.length === 0
     ? queryMatchedShops
-    : locationMatchedShops.length > 0
-      ? locationMatchedShops
-      : queryMatchedShops;
+    : locationMatchedShops;
   const resultShops = filteredShops.filter((shop) => matchesFilter(shop, activeFilter));
   const filterOptions: Array<{
     key: FilterKey;
@@ -121,11 +108,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     count: number;
   }> = [
     { key: "all", label: "All shops", count: filteredShops.length },
-    {
-      key: "open",
-      label: "Open now",
-      count: filteredShops.filter((shop) => matchesFilter(shop, "open")).length
-    },
     {
       key: "walkins",
       label: "Walk-ins",
@@ -222,7 +204,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               <span className="font-semibold text-[color:var(--foreground)]">{location}</span>.
             </p>
             <p className="mt-4 max-w-3xl text-base leading-7 text-[color:var(--muted)]">
-              Use this page to compare walk-in haircut options, same-day booking links, open-now leads, phone numbers, and directions without leaving ChairRadar for every first click.
+              Compare walk-in details, posted hours, booking links, phone numbers, and directions. Call the shop to confirm today's availability.
             </p>
           </div>
 

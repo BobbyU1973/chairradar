@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     google: "Vw9myqX8OlyKcfUvRSAfE00UMDuKrcHaebJiTozf1yA"
   },
   description:
-    "ChairRadar helps people quickly find nearby barbershops, salons, and haircut providers with walk-in options, same-day availability, booking links, phone numbers, hours, and location details.",
+    "ChairRadar helps people find nearby barbershops and salons with walk-in details, posted hours, phone numbers, booking links, and directions for a same-day haircut search.",
   applicationName: "ChairRadar",
   keywords: [
     "ChairRadar",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ChairRadar | Find Nearby Haircuts Fast",
     description:
-      "Find nearby barbershops, salons, and haircut providers with walk-in options, same-day availability, booking links, phone numbers, hours, and directions.",
+      "Find nearby barbershops and salons with walk-in details, posted hours, phone numbers, booking links, and directions.",
     url: SITE_URL,
     siteName: "ChairRadar",
     type: "website",

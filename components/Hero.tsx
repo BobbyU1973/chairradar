@@ -14,10 +14,10 @@ export function Hero() {
             Find a haircut near you today.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-8 text-[color:var(--muted)]">
-            ChairRadar helps you find barbershops, salons, and haircut providers near you with walk-in options, same-day availability, online haircut booking links, phone numbers, hours, and location details.
+            ChairRadar helps you find barbershops and salons near you with walk-in details, booking links, phone numbers, posted hours, and directions.
           </p>
           <p className="mt-4 max-w-xl text-base leading-7 text-[color:var(--muted)]">
-            Search haircut near me, barber near me, barbershop open now, walk-in haircut, same-day haircut, or kids haircut near me without digging through a dozen tabs.
+            Compare nearby shops, check posted hours and walk-in details, then call or open the shop's booking page to confirm today's availability.
           </p>
 
           <div className="mt-8">

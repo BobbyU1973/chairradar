@@ -115,7 +115,7 @@ export const guidePages: GuidePage[] = [
       {
         title: "Use open-now pages as a starting point",
         body:
-          "Open-now signals help narrow the list, but posted hours can change for holidays, staffing, or early closings."
+          "Compare nearby barbers and their posted hours. Hours can change for holidays, staffing, or early closings."
       },
       {
         title: "Call before you drive",
@@ -132,7 +132,7 @@ export const guidePages: GuidePage[] = [
       {
         question: "Can ChairRadar guarantee a barber is open right now?",
         answer:
-          "No. ChairRadar shows public listing details and open-now signals, but you should call or use the shop link to confirm."
+          "No. ChairRadar shows public listing details and posted hours when available. Call or use the shop link to confirm."
       },
       {
         question: "What should I ask when I call?",

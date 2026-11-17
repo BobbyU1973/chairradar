@@ -143,7 +143,7 @@ export default async function LocalSeoRoute({ params }: LocalSeoRouteProps) {
               {page.quickAnswer}
             </p>
             <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
-              {page.stats.bookableCount} include booking links, {page.stats.walkInCount} show walk-in or check-in access, and {page.stats.openNowCount} currently show open-now status in the broader coverage area.
+              {page.stats.bookableCount} include booking links and {page.stats.walkInCount} show walk-in or check-in access in the broader coverage area. Call to confirm today's hours.
             </p>
             <Link
               href={`/search?query=Haircut&location=${encodeURIComponent(page.searchLocation)}`}
